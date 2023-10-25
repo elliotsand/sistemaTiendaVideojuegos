@@ -1,4 +1,4 @@
-package proyectotienda;
+package proyectotienda.gui;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;

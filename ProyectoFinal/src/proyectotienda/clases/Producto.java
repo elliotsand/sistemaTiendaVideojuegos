@@ -1,14 +1,14 @@
-package proyectotienda;
+package proyectotienda.clases;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class Vendedor extends JFrame {
+public class Producto extends JFrame {
 
 	private JPanel contentPane;
 
-	public Vendedor() {
+	public Producto() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();

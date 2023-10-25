@@ -1,4 +1,4 @@
-import proyectotienda.Tienda;
+import proyectotienda.gui.Tienda;
 
 import java.awt.*;
 
