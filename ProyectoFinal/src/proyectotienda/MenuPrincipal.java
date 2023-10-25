@@ -30,9 +30,6 @@ public class MenuPrincipal extends JFrame {
 	}
 
 	
-	/**
-	 * Create the frame.
-	 */
 	public MenuPrincipal() {
 		setTitle("VideoGamesStore");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
