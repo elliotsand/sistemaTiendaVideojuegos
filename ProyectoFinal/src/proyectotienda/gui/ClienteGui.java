@@ -3,61 +3,30 @@ package proyectotienda.gui;
 import proyectotienda.arreglos.ArregloClientes;
 import proyectotienda.hijas.Cliente;
 
-import java.awt.EventQueue;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.util.Arrays;
-
-public class ClienteGui extends JFrame implements ActionListener {
+public class ClienteGui extends JInternalFrame implements ActionListener {
 
     private JPanel contentPane;
-    private JLabel lblCodigoCliente;
-    private JLabel lblNombres;
-    private JLabel lblApellidos;
-    private JLabel lblTelefono;
-    private JLabel lblDni;
-    private JLabel lblCilindrada;
-    private JLabel lblTraccion;
-    private JTextField txtCodigoCliente;
-    private JTextField txtNombres;
-    private JTextField txtApellidos;
-    private JTextField txtTelefono;
-    private JTextField txtDni;
-    private JTextField txtCilindrada;
-    private JTextField txtTraccion;
-    private JButton btnAdicionar;
-    private JButton btnConsultar;
-    private JButton btnModificar;
-    private JButton btnEliminar;
+    private JLabel lblCodigoCliente, lblNombres, lblApellidos, lblTelefono, lblDni;
+    private JTextField txtCodigoCliente, txtNombres, txtApellidos, txtTelefono, txtDni;
+    private JButton btnAdicionar, btnConsultar, btnModificar, btnEliminar;
     private JScrollPane scrollPane;
     private JTable tblTabla;
     private DefaultTableModel modelo;
-    private JComboBox<String> tipoVehiculoComboBox;
 
     ArregloClientes arregloClientes = new ArregloClientes();
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    ClienteGui frame = new ClienteGui();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
     public ClienteGui() {
         setTitle("Mantenimiento cliente");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 730, 420);
-        setLocationRelativeTo(null);
+        setBounds(100, 100, 730, 300);
+        setClosable(true);
+        setResizable(true);
+        setMaximizable(true);
+        setIconifiable(true);
 
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -113,26 +82,26 @@ public class ClienteGui extends JFrame implements ActionListener {
 
         btnAdicionar = new JButton("Adicionar");
         btnAdicionar.addActionListener(this);
-        btnAdicionar.setBounds(580, 90, 120, 23);
+        btnAdicionar.setBounds(580, 55, 120, 23);
         contentPane.add(btnAdicionar);
 
         btnConsultar = new JButton("Consultar");
         btnConsultar.addActionListener(this);
-        btnConsultar.setBounds(580, 120, 120, 23);
+        btnConsultar.setBounds(580, 85, 120, 23);
         contentPane.add(btnConsultar);
 
         btnModificar = new JButton("Modificar");
         btnModificar.addActionListener(this);
-        btnModificar.setBounds(580, 150, 120, 23);
+        btnModificar.setBounds(580, 115, 120, 23);
         contentPane.add(btnModificar);
 
         btnEliminar = new JButton("Eliminar");
         btnEliminar.addActionListener(this);
-        btnEliminar.setBounds(580, 180, 120, 23);
+        btnEliminar.setBounds(580, 145, 120, 23);
         contentPane.add(btnEliminar);
 
         scrollPane = new JScrollPane();
-        scrollPane.setBounds(10, 90, 560, 274);
+        scrollPane.setBounds(10, 55, 560, 200);
         contentPane.add(scrollPane);
 
         tblTabla = new JTable();
@@ -166,28 +135,6 @@ public class ClienteGui extends JFrame implements ActionListener {
     }
 
     protected void actionPerformedBtnAdicionar(ActionEvent arg0) {
-        /*int codigoCliente = leerCodigoCliente();
-        boolean codigoExistente = false;
-
-        for (int i = 0; i < arregloClientes.tamanio(); i++) {
-            if (arregloClientes.obtener(i).getCodigoCliente() == codigoCliente) {
-                codigoExistente = true;
-                break;
-            }
-        }
-        if (codigoExistente) {
-            mensaje("El código ya existe. No se puede adicionar el cliente.");
-        } else {
-            String nombres = leerNombres();
-            String apellidos = leerApellidos();
-            String telefono = leerTelefono();
-            String dni = leerDni();
-
-            Cliente cliente = new Cliente(nombres, apellidos, telefono, dni);
-            arregloClientes.agregar(cliente);
-            listar();
-            limpieza();
-        }*/
         String nombres = leerNombres();
         String apellidos = leerApellidos();
         String telefono = leerTelefono();
