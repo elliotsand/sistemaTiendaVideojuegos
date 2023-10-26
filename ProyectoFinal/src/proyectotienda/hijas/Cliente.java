@@ -1,20 +1,24 @@
 package proyectotienda.hijas;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import proyectotienda.padre.Informacion;
 
-public class Cliente extends JFrame {
+public class Cliente extends Informacion {
 
-	private JPanel contentPane;
+	private int codigoCliente;
+	private static int correlativo = 1001;
 
-	public Cliente() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+	public Cliente(String nombres, String apellidos, String telefono, String dni) {
+		super(nombres, apellidos, telefono, dni);
+		this.codigoCliente = correlativo;
+		correlativo++;
+	}
 
-		setContentPane(contentPane);
+	public int getCodigoCliente() {
+		return codigoCliente;
+	}
+
+	public static void establecerCorrelativo(int valor) {
+		correlativo = valor;
 	}
 
 }
