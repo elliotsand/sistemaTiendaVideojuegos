@@ -8,7 +8,7 @@ public class Main {
             public void run() {
                 try {
                     Tienda frame = new Tienda();
-                    frame.setVisible(true);
+                    frame.setVisible(true);        
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
