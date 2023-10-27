@@ -87,13 +87,14 @@ public class TiendaGui extends JFrame implements ActionListener {
         JMenuItem mntmNewMenuItem_1 = new JMenuItem("Vendedores");
         mntmNewMenuItem_1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                /*VendedorGui vendedorGui = new VendedorGui();
-                int x = (desktopPane.getWidth() - vendedorGui.getWidth()) / 2;
-                int y = (desktopPane.getHeight() - vendedorGui.getHeight()) / 2;
+                Vendedor ventanadevendedor = new Vendedor();
 
-                desktopPane.add(vendedorGui);
-                vendedorGui.setVisible(true);
-                vendedorGui.setLocation(x, y);*/
+                int x = (desktopPane.getWidth() - ventanadevendedor.getWidth()) / 2;
+                int y = (desktopPane.getHeight() - ventanadevendedor.getHeight()) / 2;
+
+                ventanadevendedor.setLocation(x, y);
+                desktopPane.add(ventanadevendedor);
+                ventanadevendedor.setVisible(true);
             }
         });
         mnNewMenu_1.add(mntmNewMenuItem_1);

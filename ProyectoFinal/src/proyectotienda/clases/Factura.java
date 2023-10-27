@@ -1,20 +1,41 @@
 package proyectotienda.clases;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
-public class Factura extends JFrame {
+public class Factura {
 
-	private JPanel contentPane;
+	private int codigoFactura;
+	private int codigoVendedor;
+	private int codigoProducto;
+	private int unidades;
+	private double precio;
 
-	public Factura() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+	private static int codigoFacturaCounter = 4001;
 
-		setContentPane(contentPane);
+	public Factura(int codigoFactura, int codigoVendedor, int codigoProducto, int unidades, double precio) {
+		this.codigoFactura = codigoFactura;
+		this.codigoVendedor = codigoVendedor;
+		this.codigoProducto = codigoProducto;
+		this.unidades = unidades;
+		this.precio = precio;
 	}
 
+	public int getCodigoFactura() {
+		return codigoFactura;
+	}
+
+	public int getCodigoVendedor() {
+		return codigoVendedor;
+	}
+
+	public int getCodigoProducto() {
+		return codigoProducto;
+	}
+
+	public int getUnidades() {
+		return unidades;
+	}
+
+	public double getPrecio() {
+		return precio;
+	}
 }
