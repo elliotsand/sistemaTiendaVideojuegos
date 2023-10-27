@@ -1,71 +1,223 @@
 package proyectotienda.gui;
+
+import proyectotienda.arreglos.ArregloProductos;
+import proyectotienda.clases.Producto
+;
+
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+public class ProductoGUI extends JInternalFrame implements ActionListener {
 
-public class ProductoGUI extends JFrame {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+    private JLabel lblCodigoProducto, lblNombre, lblDescripcion, lblPrecio;
+    private JTextField txtCodigoProducto, txtNombre, txtDescripcion, txtPrecio, txtDni;
+    private JButton btnAdicionar, btnConsultar, btnModificar, btnEliminar;
+    private JScrollPane scrollPane;
+    private JTable tblTabla;
+    private DefaultTableModel modelo;
 
-    private JTextField codigoProductoField;
-    private JTextField descripcionField;
-    private JTextField precioField;
-    private JButton guardarButton;
+    ArregloProductos ArregloProductos = new ArregloProductos();
 
     public ProductoGUI() {
-       
-        setTitle("Ingreso de Producto");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(300, 200);
-        setLocationRelativeTo(null);
+        setTitle("Mantenimiento Productos");
+        setBounds(100, 100, 730, 300);
+        setClosable(true);
+        setResizable(true);
+        setMaximizable(true);
+        setIconifiable(true);
 
-         
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(4, 2));
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
 
-        JLabel codigoLabel = new JLabel("Código Producto:");
-        codigoProductoField = new JTextField();
-        JLabel descripcionLabel = new JLabel("Descripción:");
-        descripcionField = new JTextField();
-        JLabel precioLabel = new JLabel("Precio (sin IGV):");
-        precioField = new JTextField();
-        guardarButton = new JButton("Guardar");
+        lblCodigoProducto = new JLabel("Cod. producto:");
+        lblCodigoProducto.setBounds(10, 11, 70, 28);
+        contentPane.add(lblCodigoProducto);
 
-        panel.add(codigoLabel);
-        panel.add(codigoProductoField);
-        panel.add(descripcionLabel);
-        panel.add(descripcionField);
-        panel.add(precioLabel);
-        panel.add(precioField);
-        panel.add(new JLabel());  
-        panel.add(guardarButton);
+        txtCodigoProducto = new JTextField();
+        txtCodigoProducto.setBounds(85, 11, 40, 28);
+        contentPane.add(txtCodigoProducto);
+        txtCodigoProducto.setColumns(10);
 
-         
-        getContentPane().add(panel);
+        lblNombre = new JLabel("Nombre:");
+        lblNombre.setBounds(140, 11, 90, 28);
+        contentPane.add(lblNombre);
 
-        
-        guardarButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                
-                int codigoProducto = Integer.parseInt(codigoProductoField.getText());
-                String descripcion = descripcionField.getText();
-                double precio = Double.parseDouble(precioField.getText());
+        txtNombre = new JTextField();
+        txtNombre.setBounds(200, 11, 80, 28);
+        contentPane.add(txtNombre);
+        txtNombre.setColumns(10);
 
-               
-                // Producto producto = new Producto(codigoProducto, descripcion, precio);
-            }
-        });
+        lblDescripcion = new JLabel("Descripcion:");
+        lblDescripcion.setBounds(290, 11, 70, 28);
+        contentPane.add(lblDescripcion);
+
+        txtDescripcion = new JTextField();
+        txtDescripcion.setBounds(350, 11, 80, 28);
+        contentPane.add(txtDescripcion);
+        txtDescripcion.setColumns(10);
+
+        lblPrecio = new JLabel("Precio:");
+        lblPrecio.setHorizontalAlignment(SwingConstants.RIGHT);
+        lblPrecio.setBounds(420, 11, 80, 28);
+        contentPane.add(lblPrecio);
+
+        txtPrecio = new JTextField();
+        txtPrecio.setBounds(510, 11, 70, 28);
+        contentPane.add(txtPrecio);
+        txtPrecio.setColumns(10);
+
+        btnAdicionar = new JButton("Adicionar");
+        btnAdicionar.addActionListener(this);
+        btnAdicionar.setBounds(580, 55, 120, 23);
+        contentPane.add(btnAdicionar);
+
+        btnConsultar = new JButton("Consultar");
+        btnConsultar.addActionListener(this);
+        btnConsultar.setBounds(580, 85, 120, 23);
+        contentPane.add(btnConsultar);
+
+        btnModificar = new JButton("Modificar");
+        btnModificar.addActionListener(this);
+        btnModificar.setBounds(580, 115, 120, 23);
+        contentPane.add(btnModificar);
+
+        btnEliminar = new JButton("Eliminar");
+        btnEliminar.addActionListener(this);
+        btnEliminar.setBounds(580, 145, 120, 23);
+        contentPane.add(btnEliminar);
+
+        scrollPane = new JScrollPane();
+        scrollPane.setBounds(10, 55, 560, 200);
+        contentPane.add(scrollPane);
+
+        tblTabla = new JTable();
+        tblTabla.setFillsViewportHeight(true);
+        scrollPane.setViewportView(tblTabla);
+
+        modelo = new DefaultTableModel();
+        modelo.addColumn("Cód. Producto");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Descripcion");
+        modelo.addColumn("Precio");
+        tblTabla.setModel(modelo);
+
+        listar();
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                ProductoGUI productoGUI = new ProductoGUI();
-                productoGUI.setVisible(true);
-            }
-        });
+    public void actionPerformed(ActionEvent arg0) {
+        if (arg0.getSource() == btnEliminar) {
+            actionPerformedBtnEliminar(arg0);
+        }
+        if (arg0.getSource() == btnModificar) {
+            actionPerformedBtnModificar(arg0);
+        }
+        if (arg0.getSource() == btnConsultar) {
+            actionPerformedBtnConsultar(arg0);
+        }
+        if (arg0.getSource() == btnAdicionar) {
+            actionPerformedBtnAdicionar(arg0);
+        }
     }
+
+    protected void actionPerformedBtnAdicionar(ActionEvent arg0) {
+        String nombre = leerNombre();
+        String descripcion = leerDescripcion();
+        double precio = leerPrecio();
+
+        Producto producto = new Producto(nombre, descripcion, precio);
+        ArregloProductos.agregar(producto);
+        listar();
+        limpieza();
+    }
+
+    protected void actionPerformedBtnConsultar(ActionEvent arg0) {
+    	int codigoProducto = leerCodigoProducto();
+        Producto producto = ArregloProductos.buscar(codigoProducto);
+
+        txtNombre.setText(producto.getNombre());
+        txtDescripcion.setText(producto.getDescripcion());
+        txtPrecio.setText(String.valueOf(producto.getPrecio()));
+    }
+
+    protected void actionPerformedBtnModificar(ActionEvent arg0) {
+        int codigoProducto = leerCodigoProducto();
+        String nombre = leerNombre();
+        String descripcion = leerDescripcion();
+        double precio = leerPrecio();
+
+        Producto producto = ArregloProductos.buscar(codigoProducto);
+
+        producto.setNombre(nombre);
+        producto.setDescripcion(descripcion);
+        producto.setPrecio(precio);
+
+        ArregloProductos.actualizar();
+
+        listar();
+        limpieza();
+    }
+
+    protected void actionPerformedBtnEliminar(ActionEvent arg0) {
+        int codigoProducto = leerCodigoProducto();
+        Producto producto = ArregloProductos.buscar(codigoProducto);
+        ArregloProductos.eliminar(producto);
+        limpieza();
+        listar();
+    }
+
+    void limpieza() {
+        txtCodigoProducto.setText("");
+        txtNombre.setText("");
+        txtDescripcion.setText("");
+        txtPrecio.setText("");
+        txtDni.setText("");
+        txtCodigoProducto.requestFocus();
+    }
+
+    void listar() {
+        modelo.setRowCount(0);
+
+        for (int i = 0; i < ArregloProductos.tamanio(); i++) {
+            Producto producto = ArregloProductos.obtener(i);
+            Object[] fila = {
+                    producto.getCodigoProducto(),
+                    producto.getNombre(),
+                    producto.getDescripcion(),
+                    producto.getPrecio(),
+            };
+            modelo.addRow(fila);
+        }
+    }
+
+    void mensaje(String s) {
+        JOptionPane.showMessageDialog(this, s);
+    }
+
+    int leerCodigoProducto() {
+        return Integer.parseInt(txtCodigoProducto.getText().trim());
+    }
+
+    String leerNombre() {
+        return txtNombre.getText().trim();
+    }
+
+    String leerDescripcion() {
+        return txtDescripcion.getText().trim();
+    }
+
+    double leerPrecio() {
+    	String precioText = txtPrecio.getText().trim();
+        double precio = Double.parseDouble(precioText);
+        return precio;
+    }
+
 }
-
-
-
-

@@ -84,6 +84,20 @@ public class TiendaGui extends JFrame implements ActionListener{
             }
         });
         mnNewMenu_1.add(mntmNewMenuItem_2);
+        
+        JMenuItem mntmNewMenuItem_4 = new JMenuItem("Productos");
+        mntmNewMenuItem_4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	ProductoGUI ProductoGUI = new ProductoGUI();
+                int x = (desktopPane.getWidth() - ProductoGUI.getWidth()) / 2;
+                int y = (desktopPane.getHeight() - ProductoGUI.getHeight()) / 2;
+
+                ProductoGUI.setLocation(x, y);
+                desktopPane.add(ProductoGUI);
+                ProductoGUI.setVisible(true);
+            }
+        });
+        mnNewMenu_1.add(mntmNewMenuItem_4);
 
         JMenuItem mntmNewMenuItem_3 = new JMenuItem("Ventas");
         mntmNewMenuItem_3.addActionListener(new ActionListener() {
@@ -100,6 +114,8 @@ public class TiendaGui extends JFrame implements ActionListener{
         });
         mnNewMenu_2.add(mntmNewMenuItem_3);
 
+        
+        
         desktopPane = new JDesktopPane();
         desktopPane.setBounds(10, 25, 760, 530);
         contentPane.add(desktopPane);

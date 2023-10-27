@@ -12,7 +12,7 @@ public class ArregloProductos {
 
     public ArregloProductos() {
         productos = new ArrayList<>();
-        cargarCliente();
+        cargarProducto();
         establecerCorrelativo();
     }
 
@@ -22,7 +22,7 @@ public class ArregloProductos {
 
     public void agregar(Producto producto) {
         productos.add(producto);
-        grabarCliente();
+        grabarProducto();
         establecerCorrelativo();
     }
 
@@ -32,41 +32,39 @@ public class ArregloProductos {
 
     public void eliminar(Producto producto) {
         productos.remove(producto);
-        grabarCliente();
+        grabarProducto();
         establecerCorrelativo();
     }
 
     public Producto buscar(int codigo) {
         for(Producto producto : productos)
-           // if(producto.getCodigoCliente() == codigo)
+            if(producto.getCodigoProducto() == codigo)
                 return producto;
 
         return null;
     }
 
     public void actualizar() {
-        grabarCliente();
+    	grabarProducto();
     }
 
-    private void cargarCliente() {
+    private void cargarProducto() {
         try {
             BufferedReader bufferedReader;
             String linea;
-            String nombres;
-            String apellidos;
-            String telefono;
-            String dni;
+            String nombre;
+            String descripcion;
+            Double precio;
             String[] strings;
 
-            bufferedReader = new BufferedReader(new FileReader("Clientes.txt"));
+            bufferedReader = new BufferedReader(new FileReader("Productos.txt"));
 
             while((linea = bufferedReader.readLine()) != null) {
                 strings = linea.split(";");
-                nombres = strings[1].trim();
-                apellidos = strings[2].trim();
-                telefono =  strings[3].trim();
-                dni = strings[4].trim();
-                //agregar(new Producto(nombres, apellidos, telefono, dni));
+                nombre = strings[1].trim();
+                descripcion = strings[2].trim();
+                precio =  Double.parseDouble(strings[3].trim());
+                agregar(new Producto(nombre, descripcion, precio));
             }
             bufferedReader.close();
         }
@@ -75,7 +73,7 @@ public class ArregloProductos {
         }
     }
 
-    private void grabarCliente() {
+    private void grabarProducto() {
         PrintWriter printWriter;
         String linea;
         Producto producto;
@@ -83,10 +81,9 @@ public class ArregloProductos {
             printWriter = new PrintWriter(new FileWriter("Clientes.txt"));
             for (int i = 0; i < tamanio(); i++) {
                 producto = obtener(i);
-                /*linea = producto.getCodigoCliente() + ";" + producto.getNombres() +
-                        ";" + producto.getApellidos() + ";" + producto.getTelefono() +
-                        ";" + producto.getDni();
-                printWriter.println(linea);*/
+                linea = producto.getCodigoProducto() + ";" + producto.getNombre() +
+                        ";" + producto.getDescripcion() + ";" + producto.getPrecio(); 
+                printWriter.println(linea);
             }
             printWriter.close();
         }
@@ -98,11 +95,11 @@ public class ArregloProductos {
     private void establecerCorrelativo() {
         int maxCodigo = 1000; // Valor predeterminado si no hay clientes
         for (Producto producto : productos) {
-            //if (producto.getCodigoCliente() > maxCodigo) {
-            //    maxCodigo = producto.getCodigoCliente();
-            //}
+            if (producto.getCodigoProducto() > maxCodigo) {
+                maxCodigo = producto.getCodigoProducto();
+            }
         }
-        //Producto.establecerCorrelativo(maxCodigo + 1);
+        Producto.establecerCorrelativo(maxCodigo + 1);
     }
 
 }
