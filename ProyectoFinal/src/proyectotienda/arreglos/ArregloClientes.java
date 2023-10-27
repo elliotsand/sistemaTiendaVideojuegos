@@ -95,8 +95,7 @@ public class ArregloClientes {
     }
 
     private void establecerCorrelativo() {
-        int maxCodigo = 1000; // Valor predeterminado si no hay clientes
-        for (Cliente cliente : clientes) {
+        int maxCodigo = 1000;         for (Cliente cliente : clientes) {
             if (cliente.getCodigoCliente() > maxCodigo) {
                 maxCodigo = cliente.getCodigoCliente();
             }

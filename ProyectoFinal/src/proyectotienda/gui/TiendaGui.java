@@ -87,44 +87,16 @@ public class TiendaGui extends JFrame implements ActionListener {
         JMenuItem mntmNewMenuItem_1 = new JMenuItem("Vendedores");
         mntmNewMenuItem_1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                VendedorGui vendedorGui = new VendedorGui();
+                /*VendedorGui vendedorGui = new VendedorGui();
                 int x = (desktopPane.getWidth() - vendedorGui.getWidth()) / 2;
                 int y = (desktopPane.getHeight() - vendedorGui.getHeight()) / 2;
 
                 desktopPane.add(vendedorGui);
                 vendedorGui.setVisible(true);
-                vendedorGui.setLocation(x, y);
+                vendedorGui.setLocation(x, y);*/
             }
         });
         mnNewMenu_1.add(mntmNewMenuItem_1);
-
-        JMenuItem mntmNewMenuItem_2 = new JMenuItem("Clientes");
-        mntmNewMenuItem_2.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                ClienteGui clienteGui = new ClienteGui();
-                int x = (desktopPane.getWidth() - clienteGui.getWidth()) / 2;
-                int y = (desktopPane.getHeight() - clienteGui.getHeight()) / 2;
-
-                clienteGui.setLocation(x, y);
-                desktopPane.add(clienteGui);
-                clienteGui.setVisible(true);
-            }
-        });
-        mnNewMenu_1.add(mntmNewMenuItem_2);
-
-        JMenuItem mntmNewMenuItem_4 = new JMenuItem("Productos");
-        mntmNewMenuItem_4.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	ProductoGUI ProductoGUI = new ProductoGUI();
-                int x = (desktopPane.getWidth() - ProductoGUI.getWidth()) / 2;
-                int y = (desktopPane.getHeight() - ProductoGUI.getHeight()) / 2;
-
-                ProductoGUI.setLocation(x, y);
-                desktopPane.add(ProductoGUI);
-                ProductoGUI.setVisible(true);
-            }
-        });
-        mnNewMenu_1.add(mntmNewMenuItem_4);
 
         JMenuItem mntmNewMenuItem_3 = new JMenuItem("Ventas");
         mntmNewMenuItem_3.addActionListener(new ActionListener() {
@@ -134,9 +106,9 @@ public class TiendaGui extends JFrame implements ActionListener {
                 int x = (desktopPane.getWidth() - ventaGui.getWidth()) / 2;
                 int y = (desktopPane.getHeight() - ventaGui.getHeight()) / 2;
 
+                ventaGui.setLocation(x, y);
                 desktopPane.add(ventaGui);
                 ventaGui.setVisible(true);
-                ventaGui.setLocation(x, y);
             }
         });
         mnNewMenu_2.add(mntmNewMenuItem_3);
