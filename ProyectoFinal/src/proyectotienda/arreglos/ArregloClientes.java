@@ -57,7 +57,7 @@ public class ArregloClientes {
             String dni;
             String[] strings;
 
-            bufferedReader = new BufferedReader(new FileReader("Clientes.txt"));
+            bufferedReader = new BufferedReader(new FileReader("clientes.txt"));
 
             while((linea = bufferedReader.readLine()) != null) {
                 strings = linea.split(";");
@@ -79,7 +79,7 @@ public class ArregloClientes {
         String linea;
         Cliente cliente;
         try {
-            printWriter = new PrintWriter(new FileWriter("Clientes.txt"));
+            printWriter = new PrintWriter(new FileWriter("clientes.txt"));
             for (int i = 0; i < tamanio(); i++) {
                 cliente = obtener(i);
                 linea = cliente.getCodigoCliente() + ";" + cliente.getNombres() +

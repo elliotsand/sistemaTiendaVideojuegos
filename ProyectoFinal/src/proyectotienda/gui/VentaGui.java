@@ -77,10 +77,6 @@ public class VentaGui extends JInternalFrame implements ActionListener {
         btnGrabar.setBounds(335, 7, 89, 23);
         contentPane.add(btnGrabar);
 
-        btnCerrar = new JButton("Cerrar");
-        btnCerrar.addActionListener(this);
-        btnCerrar.setBounds(335, 32, 89, 23);
-        contentPane.add(btnCerrar);
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -101,9 +97,9 @@ public class VentaGui extends JInternalFrame implements ActionListener {
         Vendedor vendedor = arregloVendedores.buscar(codVendedor);
         Producto producto = arregloProductos.buscar(codProductos);
 
-        if (cliente.getCodigoCliente() == codCliente){
-            //if (vendedor.getCodigoVendedor == codVendedor){
-                if (producto.getCodigoProducto() == codProductos){
+        if (cliente != null){
+            if (2001 == codVendedor){
+                if (producto != null){
                     mensaje("venta exitosa");
                     double precioUnitario = producto.getPrecio();
                     double importeSubtotal = precioUnitario * unidades;
@@ -111,7 +107,7 @@ public class VentaGui extends JInternalFrame implements ActionListener {
                     double importeTotal = importeSubtotal + importeIGV;
 
                     String mensaje = "Código del cliente: " + cliente.getCodigoCliente() + "\n" +
-                            //"Código del vendedor: " + vendedor.getCodigoVendedor() + "\n" +
+                            "Código del vendedor: " + 2001 + "\n" +
                             "Código del producto: " + producto.getCodigoProducto() + "\n" +
                             "Descripción del producto: " + producto.getDescripcion() + "\n" +
                             "Precio unitario: " + precioUnitario + "\n" +
@@ -126,9 +122,9 @@ public class VentaGui extends JInternalFrame implements ActionListener {
             }else{
                 mensaje("vendedor no registrado");
             }
-        //}else {
+        }else {
             mensaje("cliente no registrado");
-        //}
+        }
 
     }
 

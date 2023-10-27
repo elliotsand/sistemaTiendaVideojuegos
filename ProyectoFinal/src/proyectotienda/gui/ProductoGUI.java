@@ -12,7 +12,7 @@ import java.awt.event.ActionEvent;
 public class ProductoGUI extends JInternalFrame implements ActionListener {
 
     /**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -179,7 +179,6 @@ public class ProductoGUI extends JInternalFrame implements ActionListener {
         txtNombre.setText("");
         txtDescripcion.setText("");
         txtPrecio.setText("");
-        txtDni.setText("");
         txtCodigoProducto.requestFocus();
     }
 

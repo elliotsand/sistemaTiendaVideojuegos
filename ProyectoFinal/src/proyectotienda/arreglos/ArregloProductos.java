@@ -57,7 +57,7 @@ public class ArregloProductos {
             Double precio;
             String[] strings;
 
-            bufferedReader = new BufferedReader(new FileReader("Productos.txt"));
+            bufferedReader = new BufferedReader(new FileReader("productos.txt"));
 
             while((linea = bufferedReader.readLine()) != null) {
                 strings = linea.split(";");
@@ -78,11 +78,11 @@ public class ArregloProductos {
         String linea;
         Producto producto;
         try {
-            printWriter = new PrintWriter(new FileWriter("Clientes.txt"));
+            printWriter = new PrintWriter(new FileWriter("productos.txt"));
             for (int i = 0; i < tamanio(); i++) {
                 producto = obtener(i);
                 linea = producto.getCodigoProducto() + ";" + producto.getNombre() +
-                        ";" + producto.getDescripcion() + ";" + producto.getPrecio(); 
+                        ";" + producto.getDescripcion() + ";" + producto.getPrecio();
                 printWriter.println(linea);
             }
             printWriter.close();
@@ -93,7 +93,7 @@ public class ArregloProductos {
     }
 
     private void establecerCorrelativo() {
-        int maxCodigo = 1000; // Valor predeterminado si no hay clientes
+        int maxCodigo = 3000;
         for (Producto producto : productos) {
             if (producto.getCodigoProducto() > maxCodigo) {
                 maxCodigo = producto.getCodigoProducto();
