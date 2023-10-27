@@ -17,9 +17,11 @@ public class Vendedor extends JInternalFrame {
     private JTextArea txtlista;
     private int contadorVendedores = 0;
     private ArrayList<String> datosAgregados = new ArrayList<>();
+    private JTextField txttelf;
+    private JTextField txtdni;
 
     public Vendedor() {
-        setTitle("Vendedores");
+        setTitle("Mantenimiento vendedores");
         setClosable(true);
         setResizable(true);
         setMaximizable(true);
@@ -32,16 +34,20 @@ public class Vendedor extends JInternalFrame {
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
+        // Crear el JScrollPane y agregar el JTextArea a él
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setBounds(20, 36, 160, 99);
+        contentPane.add(scrollPane);
+        
         txtlista = new JTextArea();
-        txtlista.setBounds(20, 36, 160, 130);
-        contentPane.add(txtlista);
+        scrollPane.setViewportView(txtlista);
 
         JLabel lblNewLabel = new JLabel("Lista de vendedores:");
         lblNewLabel.setBounds(20, 11, 122, 14);
         contentPane.add(lblNewLabel);
 
         JScrollBar scrollBar = new JScrollBar();
-        scrollBar.setBounds(182, 36, -161, 130);
+        scrollBar.setBounds(182, 36, -161, 99);
         contentPane.add(scrollBar);
 
         JLabel lblNewLabel_1 = new JLabel("Buscar por:");
@@ -49,12 +55,12 @@ public class Vendedor extends JInternalFrame {
         contentPane.add(lblNewLabel_1);
 
         JComboBox cbtipoBusq = new JComboBox();
-        cbtipoBusq.setModel(new DefaultComboBoxModel(new String[]{"Nombre", "Apellido", "Código"}));
-        cbtipoBusq.setBounds(298, 10, 99, 22);
+        cbtipoBusq.setModel(new DefaultComboBoxModel(new String[] {"Cód. Vendedor", "Nombre", "Apellido", "DNI"}));
+        cbtipoBusq.setBounds(298, 10, 111, 22);
         contentPane.add(cbtipoBusq);
 
         txtbuscar = new JTextField();
-        txtbuscar.setBounds(218, 43, 105, 20);
+        txtbuscar.setBounds(218, 43, 111, 20);
         contentPane.add(txtbuscar);
         txtbuscar.setColumns(10);
 
@@ -67,7 +73,7 @@ public class Vendedor extends JInternalFrame {
         contentPane.add(scrollBar_1);
 
         JButton btnbuscar = new JButton("Buscar");
-        btnbuscar.setBounds(322, 42, 75, 21);
+        btnbuscar.setBounds(330, 42, 79, 21);
         contentPane.add(btnbuscar);
 
         JButton btnagregar = new JButton("Agregar");
@@ -81,37 +87,6 @@ public class Vendedor extends JInternalFrame {
         JButton btneliminar = new JButton("Eliminar");
         btneliminar.setBounds(320, 192, 89, 23);
         contentPane.add(btneliminar);
-
-        JLabel lblNewLabel_2 = new JLabel("Resultados de búsqueda:");
-        lblNewLabel_2.setBounds(218, 74, 152, 14);
-        contentPane.add(lblNewLabel_2);
-
-        JLabel lblNewLabel_3 = new JLabel("Nombres:");
-        lblNewLabel_3.setBounds(20, 180, 63, 14);
-        contentPane.add(lblNewLabel_3);
-
-        JLabel lblNewLabel_4 = new JLabel("Apellidos:");
-        lblNewLabel_4.setBounds(20, 207, 63, 14);
-        contentPane.add(lblNewLabel_4);
-
-        JLabel lblNewLabel_5 = new JLabel("Código:");
-        lblNewLabel_5.setBounds(20, 233, 63, 14);
-        contentPane.add(lblNewLabel_5);
-
-        txtnombres = new JTextField();
-        txtnombres.setBounds(81, 177, 99, 20);
-        contentPane.add(txtnombres);
-        txtnombres.setColumns(10);
-
-        txtapellidos = new JTextField();
-        txtapellidos.setBounds(81, 204, 98, 20);
-        contentPane.add(txtapellidos);
-        txtapellidos.setColumns(10);
-
-        txtcodigos = new JTextField();
-        txtcodigos.setBounds(81, 230, 99, 20);
-        contentPane.add(txtcodigos);
-        txtcodigos.setColumns(10);
 
         JButton btnconsultar = new JButton("Consultar");
         btnconsultar.addActionListener(new ActionListener() {
@@ -128,6 +103,54 @@ public class Vendedor extends JInternalFrame {
         btnconsultar.setBounds(215, 192, 89, 23);
         contentPane.add(btnconsultar);
 
+        JLabel lblNewLabel_2 = new JLabel("Resultados de búsqueda:");
+        lblNewLabel_2.setBounds(218, 74, 152, 14);
+        contentPane.add(lblNewLabel_2);
+
+        JLabel lblNewLabel_3 = new JLabel("Nombres:");
+        lblNewLabel_3.setBounds(20, 146, 63, 14);
+        contentPane.add(lblNewLabel_3);
+
+        JLabel lblNewLabel_4 = new JLabel("Apellidos:");
+        lblNewLabel_4.setBounds(20, 171, 63, 14);
+        contentPane.add(lblNewLabel_4);
+
+        JLabel lblNewLabel_5 = new JLabel("Código:");
+        lblNewLabel_5.setBounds(20, 196, 63, 14);
+        contentPane.add(lblNewLabel_5);
+
+        JLabel lblNewLabel_6 = new JLabel("Telf:");
+        lblNewLabel_6.setBounds(20, 221, 46, 14);
+        contentPane.add(lblNewLabel_6);
+
+        JLabel lblNewLabel_7 = new JLabel("DNI:");
+        lblNewLabel_7.setBounds(20, 245, 46, 14);
+        contentPane.add(lblNewLabel_7);
+
+        txtnombres = new JTextField();
+        txtnombres.setBounds(81, 146, 99, 20);
+        contentPane.add(txtnombres);
+        txtnombres.setColumns(10);
+
+        txtapellidos = new JTextField();
+        txtapellidos.setBounds(81, 170, 98, 20);
+        contentPane.add(txtapellidos);
+        txtapellidos.setColumns(10);
+
+        txtcodigos = new JTextField();
+        txtcodigos.setBounds(81, 194, 99, 20);
+        contentPane.add(txtcodigos);
+        txtcodigos.setColumns(10);
+
+        txttelf = new JTextField();
+        txttelf.setBounds(81, 218, 99, 20);
+        contentPane.add(txttelf);
+        txttelf.setColumns(10);
+
+        txtdni = new JTextField();
+        txtdni.setBounds(81, 242, 99, 20);
+        contentPane.add(txtdni);
+
         // Agregamos un ActionListener al botón "Agregar"
         btnagregar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -135,12 +158,14 @@ public class Vendedor extends JInternalFrame {
                 String nombres = txtnombres.getText();
                 String apellidos = txtapellidos.getText();
                 String codigo = txtcodigos.getText();
+                String telf = txttelf.getText();
+                String dni = txtdni.getText();
 
                 // Verificar que los campos no estén vacíos antes de agregar
-                if (!nombres.isEmpty() && !apellidos.isEmpty() && !codigo.isEmpty()) {
+                if (!nombres.isEmpty() && !apellidos.isEmpty() && !codigo.isEmpty() && !telf.isEmpty() && !dni.isEmpty()) {
                     contadorVendedores++; // Incrementar el contador
                     // Formatear la información del vendedor y agregarla al JTextArea
-                    String vendedorInfo = contadorVendedores + ". " + nombres + " " + apellidos + " - " + codigo;
+                    String vendedorInfo = contadorVendedores + ". " + nombres + " " + apellidos + " - " + codigo + " - " + telf + " - " + dni;
                     txtlista.append(vendedorInfo + "\n");
 
                     // Agregar los datos al registro
@@ -150,6 +175,8 @@ public class Vendedor extends JInternalFrame {
                     txtnombres.setText("");
                     txtapellidos.setText("");
                     txtcodigos.setText("");
+                    txttelf.setText("");
+                    txtdni.setText("");
                 } else {
                     JOptionPane.showMessageDialog(contentPane, "Por favor, complete todos los campos antes de agregar.", "Error", JOptionPane.ERROR_MESSAGE);
                 }

@@ -1,3 +1,4 @@
 1001;ramiro;blas;991348078;64849
 1002;emilio;moran;6546;3753
 1003;andrea;altamirano;7523;453
+1004;soan;arakaki;5654;4245
