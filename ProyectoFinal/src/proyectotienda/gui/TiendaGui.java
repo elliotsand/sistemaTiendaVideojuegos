@@ -13,13 +13,13 @@ import javax.swing.JDesktopPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Tienda extends JFrame implements ActionListener{
+public class TiendaGui extends JFrame implements ActionListener{
 
     private JPanel contentPane;
     private JDesktopPane desktopPane;
     private JMenuItem itemSalir, itemClientes;
 
-    public Tienda() {
+    public TiendaGui() {
         setTitle("Video Games Store");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 800, 600);
@@ -84,6 +84,21 @@ public class Tienda extends JFrame implements ActionListener{
             }
         });
         mnNewMenu_1.add(mntmNewMenuItem_2);
+
+        JMenuItem mntmNewMenuItem_3 = new JMenuItem("Ventas");
+        mntmNewMenuItem_3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                VentaGui ventaGui = new VentaGui();
+
+                int x = (desktopPane.getWidth() - ventaGui.getWidth()) / 2;
+                int y = (desktopPane.getHeight() - ventaGui.getHeight()) / 2;
+
+                ventaGui.setLocation(x, y);
+                desktopPane.add(ventaGui);
+                ventaGui.setVisible(true);
+            }
+        });
+        mnNewMenu_2.add(mntmNewMenuItem_3);
 
         desktopPane = new JDesktopPane();
         desktopPane.setBounds(10, 25, 760, 530);

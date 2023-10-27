@@ -1,4 +1,4 @@
-import proyectotienda.gui.Tienda;
+import proyectotienda.gui.TiendaGui;
 
 import java.awt.*;
 
@@ -7,8 +7,8 @@ public class Main {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    Tienda frame = new Tienda();
-                    frame.setVisible(true);        
+                    TiendaGui frame = new TiendaGui();
+                    frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
