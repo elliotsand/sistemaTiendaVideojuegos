@@ -4,9 +4,14 @@ import proyectotienda.arreglos.ArregloProductos;
 import proyectotienda.clases.Producto
 ;
 
+import javax.print.attribute.AttributeSet;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
+import javax.swing.text.PlainDocument;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 public class ProductoGUI extends JInternalFrame implements ActionListener {
@@ -46,6 +51,7 @@ public class ProductoGUI extends JInternalFrame implements ActionListener {
         txtCodigoProducto.setBounds(85, 11, 40, 28);
         contentPane.add(txtCodigoProducto);
         txtCodigoProducto.setColumns(10);
+        restrictToNumbers(txtCodigoProducto);
 
         lblNombre = new JLabel("Nombre:");
         lblNombre.setBounds(140, 11, 90, 28);
@@ -74,6 +80,7 @@ public class ProductoGUI extends JInternalFrame implements ActionListener {
         txtPrecio.setBounds(510, 11, 70, 28);
         contentPane.add(txtPrecio);
         txtPrecio.setColumns(10);
+        restrictToNumbers(txtPrecio);
 
         btnAdicionar = new JButton("Adicionar");
         btnAdicionar.addActionListener(this);
@@ -111,8 +118,28 @@ public class ProductoGUI extends JInternalFrame implements ActionListener {
         tblTabla.setModel(modelo);
 
         listar();
+        
     }
+    
+    public static void restrictToNumbers(JTextField textField) {
+        PlainDocument doc = (PlainDocument) textField.getDocument();
+        doc.setDocumentFilter(new DocumentFilter() {
+            @Override
+            public void insertString(FilterBypass fb, int offset, String string, javax.swing.text.AttributeSet attr) throws BadLocationException {
+                if (string.matches("[0-9]+")) {
+                    super.insertString(fb, offset, string, attr);
+                }
+            }
 
+            @Override
+            public void replace(FilterBypass fb, int offset, int length, String text, javax.swing.text.AttributeSet attrs) throws BadLocationException {
+                if (text.matches("[0-9]+")) {
+                    super.replace(fb, offset, length, text, attrs);
+                }
+            }
+        });
+    }
+    
     public void actionPerformed(ActionEvent arg0) {
         if (arg0.getSource() == btnEliminar) {
             actionPerformedBtnEliminar(arg0);
@@ -218,5 +245,6 @@ public class ProductoGUI extends JInternalFrame implements ActionListener {
         double precio = Double.parseDouble(precioText);
         return precio;
     }
+    
 
 }
