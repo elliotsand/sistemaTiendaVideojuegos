@@ -12,10 +12,10 @@ import java.awt.event.ActionListener;
 public class FacturaGUI extends JInternalFrame implements ActionListener {
 
     /**
-	 *
-	 */
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
+     *
+     */
+    private static final long serialVersionUID = 1L;
+    private JPanel contentPane;
     private JLabel lblCodigoFactura, lblCodigoProducto, lblCodigoVendedor, lblPrecio, lblUnidades;
     private JTextField txtCodigoFactura, txtCodigoProducto, txtCodigoVendedor, txtPrecio, txtUnidades;
     private JButton btnAdicionar, btnConsultar, btnModificar, btnEliminar;
@@ -27,7 +27,7 @@ public class FacturaGUI extends JInternalFrame implements ActionListener {
 
     public FacturaGUI() {
         setTitle("Mantenimiento Facturas");
-        setBounds(100, 100, 730, 300);
+        setBounds(100, 100, 732, 428);
         setClosable(true);
         setResizable(true);
         setMaximizable(true);
@@ -43,73 +43,73 @@ public class FacturaGUI extends JInternalFrame implements ActionListener {
         contentPane.add(lblCodigoFactura);
 
         txtCodigoFactura = new JTextField();
-        txtCodigoFactura.setBounds(85, 11, 40, 28);
+        txtCodigoFactura.setBounds(105, 11, 70, 28);
         contentPane.add(txtCodigoFactura);
         txtCodigoFactura.setColumns(10);
 
         lblCodigoProducto = new JLabel("CodigoProducto:");
-        lblCodigoProducto.setBounds(140, 11, 90, 28);
+        lblCodigoProducto.setBounds(10, 50, 90, 28);
         contentPane.add(lblCodigoProducto);
 
         txtCodigoProducto = new JTextField();
-        txtCodigoProducto.setBounds(200, 11, 80, 28);
+        txtCodigoProducto.setBounds(105, 50, 70, 28);
         contentPane.add(txtCodigoProducto);
         txtCodigoProducto.setColumns(10);
 
         lblCodigoVendedor = new JLabel("CodigoVendedor:");
-        lblCodigoVendedor.setBounds(290, 11, 70, 28);
+        lblCodigoVendedor.setBounds(213, 11, 96, 28);
         contentPane.add(lblCodigoVendedor);
 
         txtCodigoVendedor = new JTextField();
-        txtCodigoVendedor.setBounds(350, 11, 80, 28);
+        txtCodigoVendedor.setBounds(319, 11, 111, 28);
         contentPane.add(txtCodigoVendedor);
         txtCodigoVendedor.setColumns(10);
 
         lblPrecio = new JLabel("Precio:");
         lblPrecio.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblPrecio.setBounds(420, 11, 80, 28);
+        lblPrecio.setBounds(442, 11, 80, 28);
         contentPane.add(lblPrecio);
 
         txtPrecio = new JTextField();
-        txtPrecio.setBounds(510, 11, 70, 28);
+        txtPrecio.setBounds(532, 11, 70, 28);
         contentPane.add(txtPrecio);
         txtPrecio.setColumns(10);
 
         lblUnidades = new JLabel("Unidades:");
         lblUnidades.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblUnidades.setBounds(420, 11, 80, 28);
+        lblUnidades.setBounds(185, 50, 80, 28);
         contentPane.add(lblUnidades);
 
         txtUnidades = new JTextField();
-        txtUnidades.setBounds(510, 11, 70, 28);
+        txtUnidades.setBounds(319, 50, 111, 28);
         contentPane.add(txtUnidades);
         txtUnidades.setColumns(10);
 
         btnAdicionar = new JButton("Adicionar");
         btnAdicionar.addActionListener(this);
-        btnAdicionar.setBounds(580, 55, 120, 23);
+        btnAdicionar.setBounds(590, 89, 120, 23);
         contentPane.add(btnAdicionar);
 
         btnConsultar = new JButton("Consultar");
         btnConsultar.addActionListener(this);
-        btnConsultar.setBounds(580, 85, 120, 23);
+        btnConsultar.setBounds(590, 119, 120, 23);
         contentPane.add(btnConsultar);
 
         btnModificar = new JButton("Modificar");
         btnModificar.addActionListener(this);
-        btnModificar.setBounds(580, 115, 120, 23);
+        btnModificar.setBounds(590, 149, 120, 23);
         contentPane.add(btnModificar);
 
         btnEliminar = new JButton("Eliminar");
         btnEliminar.addActionListener(this);
-        btnEliminar.setBounds(580, 145, 120, 23);
+        btnEliminar.setBounds(590, 179, 120, 23);
         contentPane.add(btnEliminar);
 
         scrollPane = new JScrollPane();
-        scrollPane.setBounds(10, 55, 560, 200);
+        scrollPane.setBounds(20, 89, 560, 253);
         contentPane.add(scrollPane);
 
-        tblTabla = new JTable();
+        tblTabla = new JTable();  
         tblTabla.setFillsViewportHeight(true);
         scrollPane.setViewportView(tblTabla);
 
@@ -119,7 +119,7 @@ public class FacturaGUI extends JInternalFrame implements ActionListener {
         modelo.addColumn("CodigoVendedor");
         modelo.addColumn("Precio");
         modelo.addColumn("Unidades");
-        tblTabla.setModel(modelo);
+        tblTabla.setModel(modelo); 
 
         listar();
     }
@@ -145,14 +145,14 @@ public class FacturaGUI extends JInternalFrame implements ActionListener {
         double precio = leerPrecio();
         int unidades = leerUnidades();
 
-        Factura factura = new Factura( codigoProducto, codigoVendedor, precio, unidades);
+        Factura factura = new Factura(codigoProducto, codigoVendedor, precio, unidades);
         ArregloFacturas.agregar(factura);
         listar();
         limpieza();
     }
 
     protected void actionPerformedBtnConsultar(ActionEvent arg0) {
-    	int codigoFactura = leerCodigoFactura();
+        int codigoFactura = leerCodigoFactura();
         Factura factura = ArregloFacturas.buscar(codigoFactura);
 
         txtCodigoProducto.setText(String.valueOf(factura.getCodigoProducto()));
@@ -206,6 +206,7 @@ public class FacturaGUI extends JInternalFrame implements ActionListener {
                     factura.getCodigoProducto(),
                     factura.getCodigoVendedor(),
                     factura.getPrecio(),
+                    factura.getUnidades(),
             };
             modelo.addRow(fila);
         }
@@ -222,15 +223,17 @@ public class FacturaGUI extends JInternalFrame implements ActionListener {
     int leerCodigoProducto() {
         return Integer.parseInt(txtCodigoProducto.getText().trim());
     }
+
     int leerUnidades() {
         return Integer.parseInt(txtUnidades.getText().trim());
     }
+
     int leerCodigoVendedor() {
         return Integer.parseInt(txtCodigoVendedor.getText().trim());
     }
 
     double leerPrecio() {
-    	String precioText = txtPrecio.getText().trim();
+        String precioText = txtPrecio.getText().trim();
         double precio = Double.parseDouble(precioText);
         return precio;
     }
