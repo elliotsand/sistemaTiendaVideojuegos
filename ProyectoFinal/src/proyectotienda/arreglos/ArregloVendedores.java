@@ -1,5 +1,6 @@
 package proyectotienda.arreglos;
 
+import proyectotienda.hijas.Cliente;
 import proyectotienda.hijas.Vendedor;
 
 import java.io.*;
@@ -37,7 +38,7 @@ public class ArregloVendedores {
 
     public Vendedor buscar(int codigo) {
         for(Vendedor vendedor : vendedores)
-            //if(vendedor.getCodigoCliente() == codigo)
+            if(vendedor.getCodigoVendedor() == codigo)
                 return vendedor;
 
         return null;
@@ -65,7 +66,7 @@ public class ArregloVendedores {
                 apellidos = strings[2].trim();
                 telefono =  strings[3].trim();
                 dni = strings[4].trim();
-                //agregar(new Vendedor(nombres, apellidos, telefono, dni));
+                agregar(new Vendedor(nombres, apellidos, telefono, dni));
             }
             bufferedReader.close();
         }
@@ -82,6 +83,10 @@ public class ArregloVendedores {
             printWriter = new PrintWriter(new FileWriter("Vendedores.txt"));
             for (int i = 0; i < tamanio(); i++) {
                 vendedor = obtener(i);
+                linea = vendedor.getCodigoVendedor() + ";" + vendedor.getNombres() +
+                        ";" + vendedor.getApellidos() + ";" + vendedor.getTelefono() +
+                        ";" + vendedor.getDni();
+                printWriter.println(linea);
             }
             printWriter.close();
         }
@@ -93,8 +98,11 @@ public class ArregloVendedores {
     private void establecerCorrelativo() {
         int maxCodigo = 1000;
         for (Vendedor vendedor : vendedores) {
-
+            if (vendedor.getCodigoVendedor() > maxCodigo) {
+                maxCodigo = vendedor.getCodigoVendedor();
+            }
         }
+        Cliente.establecerCorrelativo(maxCodigo + 1);
     }
 
 }

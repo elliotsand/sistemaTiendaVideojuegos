@@ -2,16 +2,28 @@ package proyectotienda.hijas;
 
 public class Vendedor {
 
+    private int codigoVendedor;
     private String nombres;
     private String apellidos;
     private String telf;
     private String dni;
+    private static int correlativo = 1001;
 
     public Vendedor(String nombres, String apellidos, String telf, String dni) {
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.telf = telf;
         this.dni = dni;
+        this.codigoVendedor = correlativo;
+        correlativo++;
+    }
+
+    public int getCodigoVendedor() {
+        return codigoVendedor;
+    }
+
+    public static void establecerCorrelativo(int valor) {
+        correlativo = valor;
     }
 
     public String getNombres() {
@@ -22,7 +34,7 @@ public class Vendedor {
         return apellidos;
     }
 
-    public String getTelf() {
+    public String getTelefono() {
         return telf;
     }
 

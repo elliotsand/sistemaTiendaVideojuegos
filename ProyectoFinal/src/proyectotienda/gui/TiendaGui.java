@@ -78,9 +78,6 @@ public class TiendaGui extends JFrame implements ActionListener {
         JMenu mnNewMenu_2 = new JMenu("Ventas");
         menuBar.add(mnNewMenu_2);
 
-        JMenu mnNewMenu_4 = new JMenu("Delivery");
-        menuBar.add(mnNewMenu_4);
-
         JMenu mnNewMenu_3 = new JMenu("Reporte");
         menuBar.add(mnNewMenu_3);
 
