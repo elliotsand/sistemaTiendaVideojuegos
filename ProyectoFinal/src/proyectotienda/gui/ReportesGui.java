@@ -41,11 +41,6 @@ public class ReportesGui extends JInternalFrame implements ActionListener {
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
-        btnCerrar = new JButton("Cerrar");
-        btnCerrar.addActionListener(this);
-        btnCerrar.setBounds(375, 11, 89, 23);
-        contentPane.add(btnCerrar);
-
         lblGenerarReportes = new JLabel("Generar Reportes");
         lblGenerarReportes.setBounds(10, 15, 108, 14);
         contentPane.add(lblGenerarReportes);
@@ -72,9 +67,7 @@ public class ReportesGui extends JInternalFrame implements ActionListener {
         if (e.getSource() == cmbGenerarReportes) {
             actionPerformedGenerar(e);
         }
-//        if (e.getSource() == btnCerrar) {
-//            actionPerformedCerrar(e);
-//        }
+
     }
 
     public void actionPerformedGenerar(ActionEvent e) {

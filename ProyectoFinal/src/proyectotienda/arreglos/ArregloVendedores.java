@@ -23,7 +23,7 @@ public class ArregloVendedores {
     public void agregar(Vendedor vendedor) {
         vendedores.add(vendedor);
         grabarVendedor();
-        establecerCorrelativo();
+        //establecerCorrelativo();
     }
 
     public Vendedor obtener(int posicion) {

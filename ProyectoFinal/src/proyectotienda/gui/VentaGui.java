@@ -119,7 +119,7 @@ public class VentaGui extends JInternalFrame implements ActionListener {
                             "Importe total a pagar: " + importeTotal;
 
                     mensaje(mensaje);
-                    Venta venta = new Venta(vendedor.getCodigoVendedor(), codCliente,codVendedor,codProductos,unidades);
+                    Venta venta = new Venta(vendedor.getCodigoVendedor(), codCliente,codVendedor,codProductos,unidades, importeTotal);
                     arregloVentas.agregar(venta);
                     limpieza();
 

@@ -1,0 +1,2 @@
+2001;12;mario;alberta;783
+2002;15;carlos;bush;783

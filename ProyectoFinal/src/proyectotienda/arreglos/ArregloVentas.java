@@ -1,5 +1,6 @@
 package proyectotienda.arreglos;
 
+import proyectotienda.clases.Producto;
 import proyectotienda.clases.Venta;
 
 import java.io.*;
@@ -56,6 +57,7 @@ public class ArregloVentas {
             int codigoVendedor;
             int codigoProducto;
             int unidades;
+            double importeTotal;
             String[] strings;
 
             bufferedReader = new BufferedReader(new FileReader("ventas.txt"));
@@ -67,7 +69,8 @@ public class ArregloVentas {
                 codigoVendedor = Integer.parseInt(strings[2].trim());
                 codigoProducto =  Integer.parseInt(strings[3].trim());
                 unidades =  Integer.parseInt(strings[4].trim());
-                agregar(new Venta(codigoVenta, codigoCliente, codigoVendedor, codigoProducto, unidades));
+                importeTotal =  Double.parseDouble(strings[5].trim());
+                agregar(new Venta(codigoVenta, codigoCliente, codigoVendedor, codigoProducto, unidades, importeTotal));
             }
             bufferedReader.close();
         }
@@ -86,7 +89,7 @@ public class ArregloVentas {
                 venta = obtener(i);
                 linea = venta.getCodigoVenta() + ";" + venta.getCodigoCliente() + ";" +
                         venta.getCodigoVendedor() + ";" + venta.getCodigoProducto() + ";" +
-                        venta.getUnidades();
+                        venta.getUnidades() + ";" + venta.getImporteTotal();
                 printWriter.println(linea);
             }
             printWriter.close();
@@ -113,7 +116,7 @@ public class ArregloVentas {
             String linea;
             while ((linea = bufferedReader.readLine()) != null) {
                 String[] datosVenta = linea.split(";");
-                int codigoProductoVenta = Integer.parseInt(datosVenta[2].trim());
+                int codigoProductoVenta = Integer.parseInt(datosVenta[3].trim());
                 if (codigoProductoVenta == codigoProducto) {
                     numeroVentas++;
                 }
@@ -132,8 +135,8 @@ public class ArregloVentas {
             String linea;
             while ((linea = bufferedReader.readLine()) != null) {
                 String[] datosVenta = linea.split(";");
-                int codigoProductoVenta = Integer.parseInt(datosVenta[2].trim());
-                int unidades = Integer.parseInt(datosVenta[3].trim());
+                int codigoProductoVenta = Integer.parseInt(datosVenta[3].trim());
+                int unidades = Integer.parseInt(datosVenta[4].trim());
                 if (codigoProductoVenta == codigoProducto) {
                     unidadesVendidas += unidades;
                 }
@@ -146,32 +149,23 @@ public class ArregloVentas {
     }
 
     public double calcularImporteTotalPorProducto(int codigoProducto) {
-        double importeTotal = 0.0;
+        double importeTotalAcumulado = 0.0;
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader("ventas.txt"));
             String linea;
             while ((linea = bufferedReader.readLine()) != null) {
                 String[] datosVenta = linea.split(";");
-                int codigoProductoVenta = Integer.parseInt(datosVenta[2].trim());
-                int unidades = Integer.parseInt(datosVenta[3].trim());
-                double precioUnitario = obtenerPrecioPorCodigoProducto(codigoProductoVenta);
+                int codigoProductoVenta = Integer.parseInt(datosVenta[3].trim());
+                double importeTotal = Double.parseDouble(datosVenta[5].trim());
                 if (codigoProductoVenta == codigoProducto) {
-                    importeTotal += unidades * precioUnitario;
+                    importeTotalAcumulado += importeTotal;
                 }
             }
             bufferedReader.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return importeTotal;
+        return importeTotalAcumulado;
     }
 
-    public double obtenerPrecioPorCodigoProducto(int codigoProducto) {
-        for (Venta venta : ventas) {
-            if (venta.getCodigoProducto() == codigoProducto) {
-                return venta.getUnidades();
-            }
-        }
-        return 0.0;
-    }
 }
