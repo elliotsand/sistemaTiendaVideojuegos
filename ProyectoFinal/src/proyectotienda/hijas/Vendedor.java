@@ -7,7 +7,7 @@ public class Vendedor {
     private String apellidos;
     private String telf;
     private String dni;
-    private static int correlativo = 1001;
+    private static int correlativo = 2001;
 
     public Vendedor(String nombres, String apellidos, String telf, String dni) {
         this.nombres = nombres;

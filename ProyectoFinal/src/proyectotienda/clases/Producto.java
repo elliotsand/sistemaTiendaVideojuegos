@@ -1,7 +1,7 @@
 package proyectotienda.clases;
 
 public class Producto {
-    private static int codigoProductoCounter = 3000;
+    private static int codigoProductoCounter = 3001;
     private static int correlativoCounter = 1;
     private int codigoProducto;
     private String nombre;

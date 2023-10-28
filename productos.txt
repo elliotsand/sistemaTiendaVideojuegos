@@ -1,4 +1,4 @@
-3008;Resident evil;ciencia ficcion;200.0
-3009;Mario;3d;180.0
-3010;12;12;12.0
-3011;12;12;12.0
+3001;Resident evil;ciencia ficcion;200.0
+3002;Mario;3d;180.0
+3003;Mario2;car;45.0
+3004;Mario3;island2;120.0
