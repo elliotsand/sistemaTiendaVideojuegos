@@ -1,15 +1,9 @@
 package proyectotienda.gui;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-import proyectotienda.hijas.Vendedor;
-
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JDesktopPane;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -18,7 +12,9 @@ public class TiendaGui extends JFrame implements ActionListener {
 
     private JPanel contentPane;
     private JDesktopPane desktopPane;
-    private JMenuItem itemSalir, itemClientes, itemProductos;
+    private JMenuItem itemSalir, itemClientes, itemProductos, mntmNewMenuItem;
+    private ImageIcon imagen;
+    private JLabel etiqueta1;
 
     public TiendaGui() {
         setTitle("Video Games Store");
@@ -42,8 +38,9 @@ public class TiendaGui extends JFrame implements ActionListener {
         mnNewMenu.add(itemSalir);
         itemSalir.addActionListener(this);
 
-        JMenuItem mntmNewMenuItem = new JMenuItem("Nosotros");
+        mntmNewMenuItem = new JMenuItem("Nosotros");
         mnNewMenu.add(mntmNewMenuItem);
+        mntmNewMenuItem.addActionListener(this);
 
         JMenu mnNewMenu_1 = new JMenu("Mantenimiento");
         menuBar.add(mnNewMenu_1);
@@ -149,15 +146,31 @@ public class TiendaGui extends JFrame implements ActionListener {
         desktopPane = new JDesktopPane();
         desktopPane.setBounds(10, 25, 760, 530);
         contentPane.add(desktopPane);
+
+        imagen = new ImageIcon("ProyectoFinal/img/portada1.jpg");
+        etiqueta1 = new JLabel();
+        etiqueta1.setBounds(0, 0, 760, 530);
+        etiqueta1.setIcon(new ImageIcon(imagen.getImage().getScaledInstance(etiqueta1.getWidth(), etiqueta1.getHeight(), Image.SCALE_SMOOTH)));
+
+        desktopPane.add(etiqueta1);
+        desktopPane.moveToFront(etiqueta1);
     }
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == itemSalir) {
             actionPerformedSalir(e);
         }
+        if (e.getSource() == mntmNewMenuItem) {
+            actionPerformedAcercaDeTienda(e);
+        }
     }
 
     public void actionPerformedSalir(ActionEvent e) {
         System.exit(0);
+    }
+
+    public void actionPerformedAcercaDeTienda(ActionEvent e) {
+        NosotrosGui nosotrosGui = new NosotrosGui();
+        nosotrosGui.setVisible(true);
     }
 }
