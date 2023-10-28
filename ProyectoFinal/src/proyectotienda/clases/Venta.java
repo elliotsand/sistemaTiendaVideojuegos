@@ -1,15 +1,24 @@
 package proyectotienda.clases;
 
 public class Venta {
+    private int codigoVenta;
     private int codigoCliente;
     private int codigoVendedor;
     private int codigoProducto;
-    private int precio;
+    private int unidades;
     private static int correlativo = 5001;
 
-    public Venta(int codigoCliente, int codigoVendedor, int codigoProducto) {
-        this.codigoCliente = correlativo;
+    public Venta(int codigoVenta, int codigoCliente, int codigoVendedor, int codigoProducto, int unidades) {
+        this.codigoVenta = correlativo;
+        this.codigoCliente = codigoCliente;
+        this.codigoVendedor = codigoVendedor;
+        this.codigoProducto = codigoProducto;
+        this.unidades = unidades;
         correlativo++;
+    }
+
+    public int getCodigoVenta() {
+        return codigoVenta;
     }
 
     public int getCodigoCliente() {
@@ -24,8 +33,8 @@ public class Venta {
         return codigoProducto;
     }
 
-    public int getPrecio() {
-        return precio;
+    public int getUnidades() {
+        return unidades;
     }
 
     public static void establecerCorrelativo(int valor) {

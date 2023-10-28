@@ -12,7 +12,7 @@ public class ArregloVentas {
     public ArregloVentas() {
         ventas = new ArrayList<>();
         cargarVenta();
-        establecerCorrelativo();
+        //establecerCorrelativo();
     }
 
     public int tamanio() {
@@ -22,7 +22,7 @@ public class ArregloVentas {
     public void agregar(Venta venta) {
         ventas.add(venta);
         grabarVenta();
-        establecerCorrelativo();
+        //establecerCorrelativo();
     }
 
     public Venta obtener(int posicion) {
@@ -32,7 +32,7 @@ public class ArregloVentas {
     public void eliminar(Venta venta) {
         ventas.remove(venta);
         grabarVenta();
-        establecerCorrelativo();
+        //establecerCorrelativo();
     }
 
     public Venta buscar(int codigo) {
@@ -51,19 +51,23 @@ public class ArregloVentas {
         try {
             BufferedReader bufferedReader;
             String linea;
+            int codigoVenta;
             int codigoCliente;
             int codigoVendedor;
             int codigoProducto;
+            int unidades;
             String[] strings;
 
-            bufferedReader = new BufferedReader(new FileReader("productos.txt"));
+            bufferedReader = new BufferedReader(new FileReader("ventas.txt"));
 
             while((linea = bufferedReader.readLine()) != null) {
                 strings = linea.split(";");
+                codigoVenta = Integer.parseInt(strings[0].trim());
                 codigoCliente = Integer.parseInt(strings[1].trim());
                 codigoVendedor = Integer.parseInt(strings[2].trim());
                 codigoProducto =  Integer.parseInt(strings[3].trim());
-                agregar(new Venta(codigoCliente, codigoVendedor, codigoProducto));
+                unidades =  Integer.parseInt(strings[4].trim());
+                agregar(new Venta(codigoVenta, codigoCliente, codigoVendedor, codigoProducto, unidades));
             }
             bufferedReader.close();
         }
@@ -77,11 +81,12 @@ public class ArregloVentas {
         String linea;
         Venta venta;
         try {
-            printWriter = new PrintWriter(new FileWriter("productos.txt"));
+            printWriter = new PrintWriter(new FileWriter("ventas.txt"));
             for (int i = 0; i < tamanio(); i++) {
                 venta = obtener(i);
-                linea = venta.getCodigoCliente() + ";" + venta.getCodigoVendedor() +
-                        ";" + venta.getCodigoProducto();
+                linea = venta.getCodigoVenta() + ";" + venta.getCodigoCliente() + ";" +
+                        venta.getCodigoVendedor() + ";" + venta.getCodigoProducto() + ";" +
+                        venta.getUnidades();
                 printWriter.println(linea);
             }
             printWriter.close();
@@ -164,7 +169,7 @@ public class ArregloVentas {
     public double obtenerPrecioPorCodigoProducto(int codigoProducto) {
         for (Venta venta : ventas) {
             if (venta.getCodigoProducto() == codigoProducto) {
-                return venta.getPrecio();
+                return venta.getUnidades();
             }
         }
         return 0.0;

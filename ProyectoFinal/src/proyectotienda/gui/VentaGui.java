@@ -3,7 +3,9 @@ package proyectotienda.gui;
 import proyectotienda.arreglos.ArregloClientes;
 import proyectotienda.arreglos.ArregloProductos;
 import proyectotienda.arreglos.ArregloVendedores;
+import proyectotienda.arreglos.ArregloVentas;
 import proyectotienda.clases.Producto;
+import proyectotienda.clases.Venta;
 import proyectotienda.hijas.Cliente;
 import proyectotienda.hijas.Vendedor;
 
@@ -16,11 +18,12 @@ public class VentaGui extends JInternalFrame implements ActionListener {
     private JPanel contentPane;
     private JLabel lblCodigoCliente, lblCodigoVendedor, lblCodigoProducto, lblUnidades;
     public JTextField txtCodigoCliente, txtCodigoVendedor, txtCodigoProducto, txtUnidades;
-    private JButton btnGrabar, btnCerrar;
+    private JButton btnVender, btnCerrar;
 
     ArregloClientes arregloClientes = new ArregloClientes();
     ArregloVendedores arregloVendedores = new ArregloVendedores();
     ArregloProductos arregloProductos = new ArregloProductos();
+    ArregloVentas arregloVentas = new ArregloVentas();
 
     public VentaGui() {
 
@@ -72,16 +75,16 @@ public class VentaGui extends JInternalFrame implements ActionListener {
         contentPane.add(txtUnidades);
         txtUnidades.setColumns(10);
 
-        btnGrabar = new JButton("Vender");
-        btnGrabar.addActionListener(this);
-        btnGrabar.setBounds(335, 7, 89, 23);
-        contentPane.add(btnGrabar);
+        btnVender = new JButton("Vender");
+        btnVender.addActionListener(this);
+        btnVender.setBounds(335, 7, 89, 23);
+        contentPane.add(btnVender);
 
     }
 
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getSource() == btnGrabar) {
+        if (e.getSource() == btnVender) {
             actionPerformedVender(e);
         }
     }
@@ -98,7 +101,7 @@ public class VentaGui extends JInternalFrame implements ActionListener {
         Producto producto = arregloProductos.buscar(codProductos);
 
         if (cliente != null){
-            if (2001 == codVendedor){
+            if (vendedor != null){
                 if (producto != null){
                     mensaje("venta exitosa");
                     double precioUnitario = producto.getPrecio();
@@ -116,6 +119,10 @@ public class VentaGui extends JInternalFrame implements ActionListener {
                             "Importe total a pagar: " + importeTotal;
 
                     mensaje(mensaje);
+                    Venta venta = new Venta(vendedor.getCodigoVendedor(), codCliente,codVendedor,codProductos,unidades);
+                    arregloVentas.agregar(venta);
+                    limpieza();
+
                 }else {
                     mensaje("producto no registrado");
                 }
@@ -126,6 +133,14 @@ public class VentaGui extends JInternalFrame implements ActionListener {
             mensaje("cliente no registrado");
         }
 
+    }
+
+    void limpieza() {
+        txtCodigoCliente.setText("");
+        txtCodigoVendedor.setText("");
+        txtCodigoProducto.setText("");
+        txtUnidades.setText("");
+        txtCodigoCliente.requestFocus();
     }
 
     int leerCodigoCliente() {

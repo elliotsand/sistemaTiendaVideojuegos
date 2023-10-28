@@ -12,7 +12,7 @@ public class ArregloClientes {
     public ArregloClientes() {
         clientes = new ArrayList<>();
         cargarCliente();
-        establecerCorrelativo();
+        //establecerCorrelativo();
     }
 
     public int tamanio() {
@@ -22,7 +22,7 @@ public class ArregloClientes {
     public void agregar(Cliente cliente) {
         clientes.add(cliente);
         grabarCliente();
-        establecerCorrelativo();
+        //establecerCorrelativo();
     }
 
     public Cliente obtener(int posicion) {
@@ -32,7 +32,7 @@ public class ArregloClientes {
     public void eliminar(Cliente cliente) {
         clientes.remove(cliente);
         grabarCliente();
-        establecerCorrelativo();
+        //establecerCorrelativo();
     }
 
     public Cliente buscar(int codigo) {
