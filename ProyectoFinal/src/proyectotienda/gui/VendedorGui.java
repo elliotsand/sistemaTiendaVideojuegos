@@ -261,7 +261,7 @@ public class VendedorGui extends JInternalFrame {
 
 				limpieza();
 
-				// Actualiza el JTextArea después de modificar el vendedor
+				
 				txtlista.setText("");
 				for (Vendedor v : arregloVendedores.getVendedores()) {
 					txtlista.append(v.getCodigoVendedor() + " " + v.getNombres() + " " + v.getApellidos() + " "

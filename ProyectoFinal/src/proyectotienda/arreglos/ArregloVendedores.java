@@ -23,13 +23,18 @@ public class ArregloVendedores {
     public void agregar(Vendedor vendedor) {
         vendedores.add(vendedor);
         grabarVendedor();
-        //establecerCorrelativo();
+        establecerCorrelativo();
     }
 
     public Vendedor obtener(int posicion) {
         return vendedores.get(posicion);
     }
 
+    public void eliminar(Vendedor vendedor) {
+        vendedores.remove(vendedor);
+        grabarVendedor();
+        establecerCorrelativo();
+    }
 
     public Vendedor buscar(int codigo) {
         for(Vendedor vendedor : vendedores)
@@ -99,15 +104,5 @@ public class ArregloVendedores {
         }
         Cliente.establecerCorrelativo(maxCodigo + 1);
     }
-    public ArrayList<Vendedor> getVendedores() {
-        return vendedores;
-    }
-
-	public void eliminar(Vendedor vendedor) {
-		vendedores.remove(vendedor);
-        grabarVendedor();
-        establecerCorrelativo();
-		
-	}
 
 }

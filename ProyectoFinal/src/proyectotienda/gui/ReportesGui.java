@@ -90,7 +90,10 @@ public class ReportesGui extends JInternalFrame implements ActionListener {
         }
 
         if (indicegenerar == 3) {
-
+        	
+        } 
+        if (indicegenerar == 4) {
+        	generarReportePrecios();
         }
     }
 
@@ -164,16 +167,15 @@ public class ReportesGui extends JInternalFrame implements ActionListener {
 
 
 
-    public void generarReporteDePrecios() {
-       /* txtAreaResultado.setText("REPORTE DE PRECIOS\n");
+    public void generarReportePrecios() {
+        double precioPromedio = arregloProductos.calcularPrecioPromedio();
+        double precioMasAlto = arregloProductos.encontrarPrecioMasAlto();
+        double precioMasBajo = arregloProductos.encontrarPrecioMasBajo();
 
-        double precioPromedio = calcularPrecioPromedio();
-        double precioMayor = obtenerPrecioMayor();
-        double precioMenor = obtenerPrecioMenor();
-
-        txtAreaResultado.append("Precio promedio: S/." + precioPromedio + "\n");
-        txtAreaResultado.append("Precio mayor: S/." + precioMayor + "\n");
-        txtAreaResultado.append("Precio menor: S/." + precioMenor + "\n");*/
+        txtAreaResultado.append("Reporte de Precios:");
+        txtAreaResultado.append("Precio Promedio: " + precioPromedio+ "\n");
+        txtAreaResultado.append("Precio Más Alto: " + precioMasAlto+ "\n");
+        txtAreaResultado.append("Precio Más Bajo: " + precioMasBajo+ "\n");
     }
 
 

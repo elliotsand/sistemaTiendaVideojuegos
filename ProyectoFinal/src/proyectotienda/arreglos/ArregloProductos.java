@@ -101,5 +101,36 @@ public class ArregloProductos {
         }
         Producto.establecerCorrelativo(maxCodigo + 1);
     }
+    
+    public double calcularPrecioPromedio() {
+        double suma = 0.0;
+        for (Producto producto : productos) {
+            suma += producto.getPrecio();
+        }
+        if (productos.size() > 0) {
+            return suma / productos.size();
+        }
+        return 0.0; 
+    }
+
+    public double encontrarPrecioMasAlto() {
+        double precioMasAlto = Double.MIN_VALUE;
+        for (Producto producto : productos) {
+            if (producto.getPrecio() > precioMasAlto) {
+                precioMasAlto = producto.getPrecio();
+            }
+        }
+        return precioMasAlto;
+    }
+
+    public double encontrarPrecioMasBajo() {
+        double precioMasBajo = Double.MAX_VALUE;
+        for (Producto producto : productos) {
+            if (producto.getPrecio() < precioMasBajo) {
+                precioMasBajo = producto.getPrecio();
+            }
+        }
+        return precioMasBajo;
+    }
 
 }
