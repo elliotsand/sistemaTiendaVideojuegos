@@ -1,9 +1,7 @@
 package proyectotienda.gui;
 
-import proyectotienda.arreglos.ArregloClientes;
-import proyectotienda.arreglos.ArregloProductos;
-import proyectotienda.arreglos.ArregloVendedores;
-import proyectotienda.arreglos.ArregloVentas;
+import proyectotienda.arreglos.*;
+import proyectotienda.clases.Factura;
 import proyectotienda.clases.Producto;
 import proyectotienda.clases.Venta;
 import proyectotienda.hijas.Cliente;
@@ -18,12 +16,13 @@ public class VentaGui extends JInternalFrame implements ActionListener {
     private JPanel contentPane;
     private JLabel lblCodigoCliente, lblCodigoVendedor, lblCodigoProducto, lblUnidades;
     public JTextField txtCodigoCliente, txtCodigoVendedor, txtCodigoProducto, txtUnidades;
-    private JButton btnVender, btnCerrar;
+    private JButton btnVender;
 
     ArregloClientes arregloClientes = new ArregloClientes();
     ArregloVendedores arregloVendedores = new ArregloVendedores();
     ArregloProductos arregloProductos = new ArregloProductos();
     ArregloVentas arregloVentas = new ArregloVentas();
+    ArregloFacturas arregloFacturas = new ArregloFacturas();
 
     public VentaGui() {
 
@@ -120,7 +119,9 @@ public class VentaGui extends JInternalFrame implements ActionListener {
 
                     mensaje(mensaje);
                     Venta venta = new Venta(vendedor.getCodigoVendedor(), codCliente,codVendedor,codProductos,unidades, importeTotal);
+                    Factura factura = new Factura(codProductos,codVendedor, producto.getPrecio(),unidades);
                     arregloVentas.agregar(venta);
+                    arregloFacturas.agregar(factura);
                     limpieza();
 
                 }else {

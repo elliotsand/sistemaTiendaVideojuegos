@@ -1,8 +1,10 @@
 package proyectotienda.gui;
 
+import proyectotienda.arreglos.ArregloFacturas;
 import proyectotienda.arreglos.ArregloProductos;
 import proyectotienda.arreglos.ArregloVendedores;
 import proyectotienda.arreglos.ArregloVentas;
+import proyectotienda.clases.Factura;
 import proyectotienda.clases.Producto;
 import proyectotienda.clases.Venta;
 import proyectotienda.hijas.Vendedor;
@@ -27,6 +29,7 @@ public class ReportesGui extends JInternalFrame implements ActionListener {
     ArregloVendedores arregloVendedores = new ArregloVendedores();
     ArregloProductos arregloProductos = new ArregloProductos();
     ArregloVentas arregloVentas = new ArregloVentas();
+    ArregloFacturas arregloFacturas = new ArregloFacturas();
 
     public ReportesGui() {
         setTitle("Generar Reportes");
@@ -73,7 +76,7 @@ public class ReportesGui extends JInternalFrame implements ActionListener {
     public void actionPerformedGenerar(ActionEvent e) {
         txtAreaResultado.setText("");
 
-        int indicegenerar, contadorsupera = 0, contadorigual = 0, contadormenor = 0;
+        int indicegenerar;
 
         indicegenerar = cmbGenerarReportes.getSelectedIndex();
 
@@ -82,11 +85,15 @@ public class ReportesGui extends JInternalFrame implements ActionListener {
         }
 
         if (indicegenerar == 1) {
-
+            generarReporteGeneralPorVendedores();
         }
 
         if (indicegenerar == 2) {
+            generarReportePorVendedor();
+        }
 
+        if (indicegenerar == 3) {
+            generarReportePorProducto();
         }
 
         if (indicegenerar == 3) {
@@ -113,12 +120,12 @@ public class ReportesGui extends JInternalFrame implements ActionListener {
         }
     }
 
-
     public void generarReporteGeneralPorVendedores() {
         txtAreaResultado.setText("REPORTE GENERAL POR VENDEDORES\n");
 
         for (int i = 0; i < arregloVendedores.tamanio(); i++) {
-            /*int codigoVendedor = arregloVendedores.getCodigoVendedor();
+            Vendedor vendedor = arregloVendedores.obtener(i);
+            int codigoVendedor = vendedor.getCodigoVendedor();
             int numeroVentas = arregloVendedores.obtenerNumeroVentasPorVendedor(codigoVendedor);
             int unidadesVendidas = arregloVendedores.calcularUnidadesVendidasPorVendedor(codigoVendedor);
             double importeTotal = arregloVendedores.calcularImporteTotalPorVendedor(codigoVendedor);
@@ -126,55 +133,42 @@ public class ReportesGui extends JInternalFrame implements ActionListener {
             txtAreaResultado.append("Código del vendedor: " + codigoVendedor + "\n");
             txtAreaResultado.append("Número de ventas efectuadas: " + numeroVentas + "\n");
             txtAreaResultado.append("Unidades vendidas acumuladas: " + unidadesVendidas + "\n");
-            txtAreaResultado.append("Importe total acumulado: S/." + importeTotal + "\n\n");*/
+            txtAreaResultado.append("Importe total acumulado: S/." + importeTotal + "\n\n");
         }
     }
 
-
-    public void generarReportePorVendedor(int codigoVendedor) {
+    public void generarReportePorVendedor() {
         txtAreaResultado.setText("REPORTE POR VENDEDOR\n");
 
         for (int i = 0; i < arregloVendedores.tamanio(); i++) {
-            /*int codigoVenta = venta.getCodigoVenta();
-            int codigoProducto = venta.getCodigoProducto();
-            int unidadesVendidas = venta.getUnidadesVendidas();
-            double precioUnitario = obtenerPrecioPorCodigoProducto(codigoProducto);
+            Factura factura = arregloFacturas.obtener(i);
+            int codigoFactura = factura.getCodigoFactura();
+            int codigoProducto = factura.getCodigoProducto();
+            int unidadesVendidas = factura.getUnidades();
+            double precioUnitario = factura.getPrecio();
 
-            txtAreaResultado.append("Código de venta: " + codigoVenta + "\n");
+            txtAreaResultado.append("Código de Factura: " + codigoFactura + "\n");
             txtAreaResultado.append("Código de producto: " + codigoProducto + "\n");
             txtAreaResultado.append("Unidades vendidas: " + unidadesVendidas + "\n");
-            txtAreaResultado.append("Precio unitario: S/." + precioUnitario + "\n\n");*/
+            txtAreaResultado.append("Precio unitario: S/." + precioUnitario + "\n\n");
         }
     }
 
-    public void generarReportePorProducto(int codigoProducto) {
+    public void generarReportePorProducto() {
         txtAreaResultado.setText("REPORTE POR PRODUCTO\n");
 
-       /* for (Venta venta : arregloVentas.getVentasPorProducto(codigoProducto)) {
-            int codigoVenta = venta.getCodigoVenta();
-            int codigoVendedor = venta.getCodigoVendedor();
-            int unidadesVendidas = venta.getUnidadesVendidas();
-            double precioUnitario = obtenerPrecioPorCodigoProducto(codigoProducto);
+        for (int i = 0; i < arregloProductos.tamanio(); i++) {
+            Factura factura = arregloFacturas.obtener(i);
+            int codigoFactura = factura.getCodigoFactura();
+            int codigoVendedor = factura.getCodigoVendedor();
+            int unidadesVendidas = factura.getUnidades();
+            double precioUnitario = factura.getPrecio();
 
-            txtAreaResultado.append("Código de venta: " + codigoVenta + "\n");
+            txtAreaResultado.append("Código de venta: " + codigoFactura + "\n");
             txtAreaResultado.append("Código de vendedor: " + codigoVendedor + "\n");
             txtAreaResultado.append("Unidades vendidas: " + unidadesVendidas + "\n");
-            txtAreaResultado.append("Precio unitario: S/." + precioUnitario + "\n\n");*/
+            txtAreaResultado.append("Precio unitario: S/." + precioUnitario + "\n\n");
+        }
+
     }
-
-
-
-    public void generarReporteDePrecios() {
-       /* txtAreaResultado.setText("REPORTE DE PRECIOS\n");
-
-        double precioPromedio = calcularPrecioPromedio();
-        double precioMayor = obtenerPrecioMayor();
-        double precioMenor = obtenerPrecioMenor();
-
-        txtAreaResultado.append("Precio promedio: S/." + precioPromedio + "\n");
-        txtAreaResultado.append("Precio mayor: S/." + precioMayor + "\n");
-        txtAreaResultado.append("Precio menor: S/." + precioMenor + "\n");*/
-    }
-
-
 }

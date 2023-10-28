@@ -107,7 +107,66 @@ public class ArregloVendedores {
 		vendedores.remove(vendedor);
         grabarVendedor();
         establecerCorrelativo();
-		
+
 	}
+
+    public int obtenerNumeroVentasPorVendedor(int codigoVendedor) {
+        int numeroVentas = 0;
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("ventas.txt"));
+            String linea;
+            while ((linea = bufferedReader.readLine()) != null) {
+                String[] datosVenta = linea.split(";");
+                int codigoProductoVenta = Integer.parseInt(datosVenta[2].trim());
+                if (codigoProductoVenta == codigoVendedor) {
+                    numeroVentas++;
+                }
+            }
+            bufferedReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return numeroVentas;
+    }
+
+    public int calcularUnidadesVendidasPorVendedor(int codigoVendedor) {
+        int unidadesVendidas = 0;
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("ventas.txt"));
+            String linea;
+            while ((linea = bufferedReader.readLine()) != null) {
+                String[] datosVenta = linea.split(";");
+                int codigoVendedorVenta = Integer.parseInt(datosVenta[2].trim());
+                int unidades = Integer.parseInt(datosVenta[4].trim());
+                if (codigoVendedorVenta == codigoVendedor) {
+                    unidadesVendidas += unidades;
+                }
+            }
+            bufferedReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return unidadesVendidas;
+    }
+
+    public double calcularImporteTotalPorVendedor(int codigoVendedor) {
+        double importeTotalAcumulado = 0.0;
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("ventas.txt"));
+            String linea;
+            while ((linea = bufferedReader.readLine()) != null) {
+                String[] datosVenta = linea.split(";");
+                int codigoVendedorVenta = Integer.parseInt(datosVenta[2].trim());
+                double importeTotal = Double.parseDouble(datosVenta[5].trim());
+                if (codigoVendedorVenta == codigoVendedor) {
+                    importeTotalAcumulado += importeTotal;
+                }
+            }
+            bufferedReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return importeTotalAcumulado;
+    }
 
 }

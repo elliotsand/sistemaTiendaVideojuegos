@@ -2,7 +2,7 @@ package proyectotienda.clases;
 
 
 public class Factura {
-    private static int correlativoCounter = 1;
+
     private static int codigoFacturaCounter = 4001;
     private int codigoFactura;
     private int codigoVendedor;

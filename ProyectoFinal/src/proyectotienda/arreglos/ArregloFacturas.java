@@ -21,7 +21,7 @@ public class ArregloFacturas {
     public void agregar(Factura factura) {
         facturas.add(factura);
         grabarFactura();
-        establecerCorrelativo();
+        //establecerCorrelativo();
     }
 
     public Factura obtener(int posicion) {
@@ -31,7 +31,7 @@ public class ArregloFacturas {
     public void eliminar(Factura factura) {
         facturas.remove(factura);
         grabarFactura();
-        establecerCorrelativo();
+        //establecerCorrelativo();
     }
 
     public Factura buscar(int codigo) {
@@ -64,7 +64,7 @@ public class ArregloFacturas {
                 codigoFactura = Integer.parseInt(strings[0].trim());
                 codigoProducto = Integer.parseInt(strings[1].trim());
                 codigoVendedor = Integer.parseInt(strings[2].trim());
-                precio = Double.parseDouble(strings[3].trim());;
+                precio = Double.parseDouble(strings[3].trim());
                 unidades = Integer.parseInt(strings[2].trim());
 
                 agregar(new Factura( codigoProducto, codigoVendedor, precio, unidades));
