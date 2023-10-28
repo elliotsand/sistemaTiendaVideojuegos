@@ -54,7 +54,7 @@ public class FacturaGUI extends JInternalFrame implements ActionListener {
         txtCodigoFactura.setColumns(10);
         restrictToNumbers(txtCodigoFactura);
 
-        lblCodigoProducto = new JLabel("CodigoProducto:");
+        lblCodigoProducto = new JLabel("Cod. Producto:");
         lblCodigoProducto.setBounds(10, 50, 90, 28);
         contentPane.add(lblCodigoProducto);
 
@@ -64,7 +64,7 @@ public class FacturaGUI extends JInternalFrame implements ActionListener {
         txtCodigoProducto.setColumns(10);
         restrictToNumbers(txtCodigoProducto);
 
-        lblCodigoVendedor = new JLabel("CodigoVendedor:");
+        lblCodigoVendedor = new JLabel("Cod. Vendedor:");
         lblCodigoVendedor.setBounds(213, 11, 96, 28);
         contentPane.add(lblCodigoVendedor);
 
@@ -120,7 +120,7 @@ public class FacturaGUI extends JInternalFrame implements ActionListener {
         scrollPane.setBounds(20, 89, 560, 253);
         contentPane.add(scrollPane);
 
-        tblTabla = new JTable();  
+        tblTabla = new JTable();
         tblTabla.setFillsViewportHeight(true);
         scrollPane.setViewportView(tblTabla);
 
@@ -130,11 +130,11 @@ public class FacturaGUI extends JInternalFrame implements ActionListener {
         modelo.addColumn("CodigoVendedor");
         modelo.addColumn("Precio");
         modelo.addColumn("Unidades");
-        tblTabla.setModel(modelo); 
+        tblTabla.setModel(modelo);
 
         listar();
     }
-    
+
     public static void restrictToNumbers(JTextField textField) {
         PlainDocument doc = (PlainDocument) textField.getDocument();
         doc.setDocumentFilter(new DocumentFilter() {
@@ -153,7 +153,7 @@ public class FacturaGUI extends JInternalFrame implements ActionListener {
             }
         });
     }
-    
+
     public void actionPerformed(ActionEvent arg0) {
         if (arg0.getSource() == btnEliminar) {
             actionPerformedBtnEliminar(arg0);
