@@ -52,7 +52,6 @@ public class FacturaGUI extends JInternalFrame implements ActionListener {
         txtCodigoFactura.setBounds(105, 11, 70, 28);
         contentPane.add(txtCodigoFactura);
         txtCodigoFactura.setColumns(10);
-        //restrictToNumbers(txtCodigoFactura);
 
         lblCodigoProducto = new JLabel("Cod. Producto:");
         lblCodigoProducto.setBounds(10, 50, 90, 28);
@@ -62,7 +61,6 @@ public class FacturaGUI extends JInternalFrame implements ActionListener {
         txtCodigoProducto.setBounds(105, 50, 70, 28);
         contentPane.add(txtCodigoProducto);
         txtCodigoProducto.setColumns(10);
-        //restrictToNumbers(txtCodigoProducto);
 
         lblCodigoVendedor = new JLabel("Cod. Vendedor:");
         lblCodigoVendedor.setBounds(213, 11, 96, 28);
@@ -72,7 +70,6 @@ public class FacturaGUI extends JInternalFrame implements ActionListener {
         txtCodigoVendedor.setBounds(319, 11, 111, 28);
         contentPane.add(txtCodigoVendedor);
         txtCodigoVendedor.setColumns(10);
-        //restrictToNumbers(txtCodigoVendedor);
 
         lblPrecio = new JLabel("Precio:");
         lblPrecio.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -83,7 +80,6 @@ public class FacturaGUI extends JInternalFrame implements ActionListener {
         txtPrecio.setBounds(532, 11, 70, 28);
         contentPane.add(txtPrecio);
         txtPrecio.setColumns(10);
-        //restrictToNumbers(txtPrecio);
 
         lblUnidades = new JLabel("Unidades:");
         lblUnidades.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -94,7 +90,6 @@ public class FacturaGUI extends JInternalFrame implements ActionListener {
         txtUnidades.setBounds(319, 50, 111, 28);
         contentPane.add(txtUnidades);
         txtUnidades.setColumns(10);
-        //restrictToNumbers(txtUnidades);
 
         btnAdicionar = new JButton("Adicionar");
         btnAdicionar.addActionListener(this);
@@ -134,26 +129,6 @@ public class FacturaGUI extends JInternalFrame implements ActionListener {
 
         listar();
     }
-
-    public static void restrictToNumbers(JTextField textField) {
-        PlainDocument doc = (PlainDocument) textField.getDocument();
-        doc.setDocumentFilter(new DocumentFilter() {
-            @Override
-            public void insertString(FilterBypass fb, int offset, String string, javax.swing.text.AttributeSet attr) throws BadLocationException {
-                if (string.matches("[0-9]+")) {
-                    super.insertString(fb, offset, string, attr);
-                }
-            }
-
-            @Override
-            public void replace(FilterBypass fb, int offset, int length, String text, javax.swing.text.AttributeSet attrs) throws BadLocationException {
-                if (text.matches("[0-9]+")) {
-                    super.replace(fb, offset, length, text, attrs);
-                }
-            }
-        });
-    }
-
     public void actionPerformed(ActionEvent arg0) {
         if (arg0.getSource() == btnEliminar) {
             actionPerformedBtnEliminar(arg0);

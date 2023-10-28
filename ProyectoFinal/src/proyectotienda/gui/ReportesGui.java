@@ -6,7 +6,6 @@ import proyectotienda.arreglos.ArregloVendedores;
 import proyectotienda.arreglos.ArregloVentas;
 import proyectotienda.clases.Factura;
 import proyectotienda.clases.Producto;
-import proyectotienda.clases.Venta;
 import proyectotienda.hijas.Vendedor;
 
 import javax.swing.*;
@@ -14,14 +13,11 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DecimalFormat;
-import java.util.Arrays;
 
 public class ReportesGui extends JInternalFrame implements ActionListener {
 
     private JPanel contentPane;
     private JLabel lblGenerarReportes;
-    private JButton btnCerrar;
     public JComboBox cmbGenerarReportes;
     private JScrollPane scrollPane;
     private JTextArea txtAreaResultado;
