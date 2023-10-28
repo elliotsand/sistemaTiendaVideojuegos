@@ -96,7 +96,7 @@ public class ArregloVendedores {
     }
 
     private void establecerCorrelativo() {
-        int maxCodigo = 1000;
+        int maxCodigo = 2000;
         for (Vendedor vendedor : vendedores) {
             if (vendedor.getCodigoVendedor() > maxCodigo) {
                 maxCodigo = vendedor.getCodigoVendedor();

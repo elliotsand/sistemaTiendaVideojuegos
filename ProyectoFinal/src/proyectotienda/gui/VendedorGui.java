@@ -23,7 +23,6 @@ public class VendedorGui extends JInternalFrame {
 	private JTextField txtnombres;
 	private JTextField txtapellidos;
 	private JTextArea txtlista;
-	private int contadorVendedores = 2000;
 	private ArrayList<String> arregloVendedores2 = new ArrayList<>();
 	private JTextField txttelf;
 	private JTextField txtdni;
@@ -50,6 +49,7 @@ public class VendedorGui extends JInternalFrame {
 		contentPane.add(scrollPane);
 
 		txtlista = new JTextArea();
+		txtlista.setEditable(false);
 		scrollPane.setViewportView(txtlista);
 
 		JLabel lblNewLabel = new JLabel("Lista de vendedores:");
@@ -73,7 +73,7 @@ public class VendedorGui extends JInternalFrame {
 		        Vendedor vendedorEncontrado = arregloVendedores.buscar(codigoVendedorBuscado);
 
 		        if (vendedorEncontrado != null) {
-		            
+
 		            textCodigoVendedor.setText(String.valueOf(vendedorEncontrado.getCodigoVendedor()));
 		            txtnombres.setText(vendedorEncontrado.getNombres());
 		            txtapellidos.setText(vendedorEncontrado.getApellidos());
@@ -149,7 +149,7 @@ public class VendedorGui extends JInternalFrame {
 		txtdni = new JTextField();
 		txtdni.setBounds(82, 280, 99, 20);
 		contentPane.add(txtdni);
-		restrictToNumbers(txtdni);
+		//restrictToNumbers(txtdni);
 
 		JLabel lblNewLabel_3_1 = new JLabel("Codigo");
 		lblNewLabel_3_1.setBounds(20, 179, 63, 14);
@@ -158,7 +158,7 @@ public class VendedorGui extends JInternalFrame {
 		textCodigoVendedor = new JTextField();
 		textCodigoVendedor.setColumns(10);
 		textCodigoVendedor.setBounds(82, 176, 99, 20);
-		restrictToNumbers(textCodigoVendedor);
+		//restrictToNumbers(textCodigoVendedor);
 		contentPane.add(textCodigoVendedor);
 
 		cargarVendedoresDesdeArchivo("vendedores.txt");
@@ -202,8 +202,8 @@ public class VendedorGui extends JInternalFrame {
 
 	        txtlista.setText("");
 	        for (Vendedor v : arregloVendedores.getVendedores()) {
-	            txtlista.append(v.getCodigoVendedor() + " " + v.getNombres() + " " + v.getApellidos() + " "
-	                    + v.getTelefono() + " " + v.getDni() + "\n");
+	            txtlista.append(v.getCodigoVendedor() + ";" + v.getNombres() + ";" + v.getApellidos() + ";"
+	                    + v.getTelefono() + ";" + v.getDni() + "\n");
 	        }
 	    }
 	}
@@ -229,8 +229,8 @@ public class VendedorGui extends JInternalFrame {
 
 				txtlista.setText("");
 				for (Vendedor v : arregloVendedores.getVendedores()) {
-					txtlista.append(v.getCodigoVendedor() + " " + v.getNombres() + " " + v.getApellidos() + " "
-							+ v.getTelefono() + " " + v.getDni() + "\n");
+					txtlista.append(v.getCodigoVendedor() + ";" + v.getNombres() + ";" + v.getApellidos() + ";"
+							+ v.getTelefono() + ";" + v.getDni() + "\n");
 				}
 			} else {
 				JOptionPane.showMessageDialog(contentPane, "Vendedor no encontrado.", "Error",
@@ -278,9 +278,11 @@ public class VendedorGui extends JInternalFrame {
 	}
 
 	void limpieza() {
+		textCodigoVendedor.setText("");
 		txtnombres.setText("");
 		txtapellidos.setText("");
 		txttelf.setText("");
 		txtdni.setText("");
+		textCodigoVendedor.requestFocus();
 	}
 }

@@ -44,14 +44,14 @@ public class ProductoGUI extends JInternalFrame implements ActionListener {
         contentPane.setLayout(null);
 
         lblCodigoProducto = new JLabel("Cod. producto:");
-        lblCodigoProducto.setBounds(10, 11, 70, 28);
+        lblCodigoProducto.setBounds(5, 11, 90, 28);
         contentPane.add(lblCodigoProducto);
 
         txtCodigoProducto = new JTextField();
-        txtCodigoProducto.setBounds(85, 11, 40, 28);
+        txtCodigoProducto.setBounds(90, 11, 40, 28);
         contentPane.add(txtCodigoProducto);
         txtCodigoProducto.setColumns(10);
-        restrictToNumbers(txtCodigoProducto);
+        //restrictToNumbers(txtCodigoProducto);
 
         lblNombre = new JLabel("Nombre:");
         lblNombre.setBounds(140, 11, 90, 28);
@@ -80,7 +80,7 @@ public class ProductoGUI extends JInternalFrame implements ActionListener {
         txtPrecio.setBounds(510, 11, 70, 28);
         contentPane.add(txtPrecio);
         txtPrecio.setColumns(10);
-        restrictToNumbers(txtPrecio);
+        //restrictToNumbers(txtPrecio);
 
         btnAdicionar = new JButton("Adicionar");
         btnAdicionar.addActionListener(this);
@@ -118,9 +118,9 @@ public class ProductoGUI extends JInternalFrame implements ActionListener {
         tblTabla.setModel(modelo);
 
         listar();
-        
+
     }
-    
+
     public static void restrictToNumbers(JTextField textField) {
         PlainDocument doc = (PlainDocument) textField.getDocument();
         doc.setDocumentFilter(new DocumentFilter() {
@@ -139,7 +139,7 @@ public class ProductoGUI extends JInternalFrame implements ActionListener {
             }
         });
     }
-    
+
     public void actionPerformed(ActionEvent arg0) {
         if (arg0.getSource() == btnEliminar) {
             actionPerformedBtnEliminar(arg0);
@@ -245,6 +245,6 @@ public class ProductoGUI extends JInternalFrame implements ActionListener {
         double precio = Double.parseDouble(precioText);
         return precio;
     }
-    
+
 
 }

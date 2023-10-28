@@ -52,7 +52,7 @@ public class FacturaGUI extends JInternalFrame implements ActionListener {
         txtCodigoFactura.setBounds(105, 11, 70, 28);
         contentPane.add(txtCodigoFactura);
         txtCodigoFactura.setColumns(10);
-        restrictToNumbers(txtCodigoFactura);
+        //restrictToNumbers(txtCodigoFactura);
 
         lblCodigoProducto = new JLabel("Cod. Producto:");
         lblCodigoProducto.setBounds(10, 50, 90, 28);
@@ -62,7 +62,7 @@ public class FacturaGUI extends JInternalFrame implements ActionListener {
         txtCodigoProducto.setBounds(105, 50, 70, 28);
         contentPane.add(txtCodigoProducto);
         txtCodigoProducto.setColumns(10);
-        restrictToNumbers(txtCodigoProducto);
+        //restrictToNumbers(txtCodigoProducto);
 
         lblCodigoVendedor = new JLabel("Cod. Vendedor:");
         lblCodigoVendedor.setBounds(213, 11, 96, 28);
@@ -72,7 +72,7 @@ public class FacturaGUI extends JInternalFrame implements ActionListener {
         txtCodigoVendedor.setBounds(319, 11, 111, 28);
         contentPane.add(txtCodigoVendedor);
         txtCodigoVendedor.setColumns(10);
-        restrictToNumbers(txtCodigoVendedor);
+        //restrictToNumbers(txtCodigoVendedor);
 
         lblPrecio = new JLabel("Precio:");
         lblPrecio.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -83,7 +83,7 @@ public class FacturaGUI extends JInternalFrame implements ActionListener {
         txtPrecio.setBounds(532, 11, 70, 28);
         contentPane.add(txtPrecio);
         txtPrecio.setColumns(10);
-        restrictToNumbers(txtPrecio);
+        //restrictToNumbers(txtPrecio);
 
         lblUnidades = new JLabel("Unidades:");
         lblUnidades.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -94,7 +94,7 @@ public class FacturaGUI extends JInternalFrame implements ActionListener {
         txtUnidades.setBounds(319, 50, 111, 28);
         contentPane.add(txtUnidades);
         txtUnidades.setColumns(10);
-        restrictToNumbers(txtUnidades);
+        //restrictToNumbers(txtUnidades);
 
         btnAdicionar = new JButton("Adicionar");
         btnAdicionar.addActionListener(this);

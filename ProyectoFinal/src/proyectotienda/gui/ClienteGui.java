@@ -6,14 +6,10 @@ import proyectotienda.hijas.Cliente;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DocumentFilter;
-import javax.swing.text.NavigationFilter.FilterBypass;
-import javax.swing.text.PlainDocument;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 public class ClienteGui extends JInternalFrame implements ActionListener {
 
     private JPanel contentPane;
@@ -47,7 +43,6 @@ public class ClienteGui extends JInternalFrame implements ActionListener {
         txtCodigoCliente.setBounds(85, 11, 40, 28);
         contentPane.add(txtCodigoCliente);
         txtCodigoCliente.setColumns(10);
-        restrictToNumbers(txtCodigoCliente);
 
         lblNombres = new JLabel("Nombres:");
         lblNombres.setBounds(140, 11, 90, 28);
@@ -76,7 +71,6 @@ public class ClienteGui extends JInternalFrame implements ActionListener {
         txtTelefono.setBounds(510, 11, 70, 28);
         contentPane.add(txtTelefono);
         txtTelefono.setColumns(10);
-        restrictToNumbers(txtTelefono);
 
         lblDni = new JLabel("Dni:");
         lblDni.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -87,7 +81,6 @@ public class ClienteGui extends JInternalFrame implements ActionListener {
         txtDni.setBounds(630, 11, 70, 28);
         contentPane.add(txtDni);
         txtDni.setColumns(10);
-        restrictToNumbers(txtDni);
 
         btnAdicionar = new JButton("Adicionar");
         btnAdicionar.addActionListener(this);
@@ -127,26 +120,7 @@ public class ClienteGui extends JInternalFrame implements ActionListener {
 
         listar();
     }
-    
-    public static void restrictToNumbers(JTextField textField) {
-        PlainDocument doc = (PlainDocument) textField.getDocument();
-        doc.setDocumentFilter(new DocumentFilter() {
-            @Override
-            public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
-                if (string.matches("[0-9]+")) {
-                    super.insertString(fb, offset, string, attr);
-                }
-            }
 
-            @Override
-            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
-                if (text.matches("[0-9]+")) {
-                    super.replace(fb, offset, length, text, attrs);
-                }
-            }
-        });
-    }
-    
     public void actionPerformed(ActionEvent arg0) {
         if (arg0.getSource() == btnEliminar) {
             actionPerformedBtnEliminar(arg0);
@@ -167,11 +141,14 @@ public class ClienteGui extends JInternalFrame implements ActionListener {
         String apellidos = leerApellidos();
         String telefono = leerTelefono();
         String dni = leerDni();
-
-        Cliente cliente = new Cliente(nombres, apellidos, telefono, dni);
-        arregloClientes.agregar(cliente);
-        listar();
-        limpieza();
+        if (validarNumero(telefono) && validarNumero(dni)) {
+            Cliente cliente = new Cliente(nombres, apellidos, telefono, dni);
+            arregloClientes.agregar(cliente);
+            listar();
+            limpieza();
+        } else {
+            mensaje("valor incorercto");
+        }
     }
 
     protected void actionPerformedBtnConsultar(ActionEvent arg0) {
@@ -199,7 +176,6 @@ public class ClienteGui extends JInternalFrame implements ActionListener {
         cliente.setDni(dni);
 
         arregloClientes.actualizar();
-
         listar();
         limpieza();
     }
@@ -261,5 +237,8 @@ public class ClienteGui extends JInternalFrame implements ActionListener {
         return txtDni.getText().trim();
     }
 
+    private boolean validarNumero(String input) {
+        return input.matches("\\d+");
+    }
 
 }
