@@ -7,6 +7,11 @@ import proyectotienda.hijas.Vendedor;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
+import javax.swing.text.PlainDocument;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
@@ -144,6 +149,7 @@ public class VendedorGui extends JInternalFrame {
 		txtdni = new JTextField();
 		txtdni.setBounds(82, 280, 99, 20);
 		contentPane.add(txtdni);
+		restrictToNumbers(txtdni);
 
 		JLabel lblNewLabel_3_1 = new JLabel("Codigo");
 		lblNewLabel_3_1.setBounds(20, 179, 63, 14);
@@ -152,6 +158,7 @@ public class VendedorGui extends JInternalFrame {
 		textCodigoVendedor = new JTextField();
 		textCodigoVendedor.setColumns(10);
 		textCodigoVendedor.setBounds(82, 176, 99, 20);
+		restrictToNumbers(textCodigoVendedor);
 		contentPane.add(textCodigoVendedor);
 
 		cargarVendedoresDesdeArchivo("vendedores.txt");
@@ -160,7 +167,24 @@ public class VendedorGui extends JInternalFrame {
 			txtlista.append(vendedorInfo + "\n");
 		}
 	}
+	public static void restrictToNumbers(JTextField textField) {
+	    PlainDocument doc = (PlainDocument) textField.getDocument();
+	    doc.setDocumentFilter(new DocumentFilter() {
+	        @Override
+	        public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
+	            if (string.matches("[0-9]+")) {
+	                super.insertString(fb, offset, string, attr);
+	            }
+	        }
 
+	        @Override
+	        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+	            if (text.matches("[0-9]+")) {
+	                super.replace(fb, offset, length, text, attrs);
+	            }
+	        }
+	    });
+	}
 	public void agregar() {
 	    String nombres = txtnombres.getText();
 	    String apellidos = txtapellidos.getText();
