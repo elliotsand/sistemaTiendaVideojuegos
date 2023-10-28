@@ -105,4 +105,8 @@ public class ArregloVendedores {
         Cliente.establecerCorrelativo(maxCodigo + 1);
     }
 
+    public ArrayList<Vendedor> getVendedores() {
+        return this.vendedores;
+    }
+
 }
