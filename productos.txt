@@ -1,1 +1,4 @@
-3001;Resident evil;ciencia ficcion;200.0
+3004;Resident evil;ciencia ficcion;200.0
+3005;Mario;3d;180.0
+3006;12;12;12.0
+3007;12;12;12.0
