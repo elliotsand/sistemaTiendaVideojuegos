@@ -58,7 +58,7 @@ public class ArregloVendedores {
             String dni;
             String[] strings;
 
-            bufferedReader = new BufferedReader(new FileReader("Vendedores.txt"));
+            bufferedReader = new BufferedReader(new FileReader("vendedores.txt"));
 
             while((linea = bufferedReader.readLine()) != null) {
                 strings = linea.split(";");
@@ -80,7 +80,7 @@ public class ArregloVendedores {
         String linea;
         Vendedor vendedor;
         try {
-            printWriter = new PrintWriter(new FileWriter("Vendedores.txt"));
+            printWriter = new PrintWriter(new FileWriter("vendedores.txt"));
             for (int i = 0; i < tamanio(); i++) {
                 vendedor = obtener(i);
                 linea = vendedor.getCodigoVendedor() + ";" + vendedor.getNombres() +

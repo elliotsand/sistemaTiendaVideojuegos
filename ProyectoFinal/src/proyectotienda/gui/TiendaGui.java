@@ -12,6 +12,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JDesktopPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 
 public class TiendaGui extends JFrame implements ActionListener {
 
@@ -84,7 +85,12 @@ public class TiendaGui extends JFrame implements ActionListener {
         JMenuItem mntmNewMenuItem_1 = new JMenuItem("Vendedores");
         mntmNewMenuItem_1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                VendedorGui vendedorGui = new VendedorGui();
+                VendedorGui vendedorGui = null;
+                try {
+                    vendedorGui = new VendedorGui();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
                 int x = (desktopPane.getWidth() - vendedorGui.getWidth()) / 2;
                 int y = (desktopPane.getHeight() - vendedorGui.getHeight()) / 2;
 

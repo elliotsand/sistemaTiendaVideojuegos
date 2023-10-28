@@ -1,12 +1,15 @@
 package proyectotienda.gui;
 
+import proyectotienda.arreglos.ArregloClientes;
+import proyectotienda.arreglos.ArregloVendedores;
+import proyectotienda.hijas.Cliente;
+import proyectotienda.hijas.Vendedor;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 
 public class VendedorGui extends JInternalFrame {
@@ -17,12 +20,14 @@ public class VendedorGui extends JInternalFrame {
     private JTextField txtapellidos;
     private JTextArea txtlista;
     private int contadorVendedores = 2000;
-    private ArrayList<String> datosAgregados = new ArrayList<>();
+    private ArrayList<String> arregloVendedores2 = new ArrayList<>();
     private JTextField txttelf;
     private JTextField txtdni;
     private JButton btnbuscar;
-
-    public VendedorGui() {
+    
+    ArregloVendedores arregloVendedores = new ArregloVendedores();
+    
+    public VendedorGui() throws IOException {
         setTitle("Mantenimiento vendedores");
         setClosable(true);
         setResizable(true);
@@ -84,7 +89,7 @@ public class VendedorGui extends JInternalFrame {
                 if (opcionBusqueda.equals("Cód. Vendedor")) {
                     // Buscar por número de vendedor
                     String resultado = null;
-                    for (String dato : datosAgregados) {
+                    for (String dato : arregloVendedores2) {
                         String[] partes = dato.split(" ");
                         if (partes.length >= 1 && partes[0].equals(textoBusqueda)) {
                             resultado = dato;
@@ -95,7 +100,7 @@ public class VendedorGui extends JInternalFrame {
                     }
                 } else if (opcionBusqueda.equals("Nombre")) {
                     // Buscar por nombre
-                    for (String dato : datosAgregados) {
+                    for (String dato : arregloVendedores2) {
                         String[] partes = dato.split(" ");
                         if (partes.length >= 2 && partes[1].equals(textoBusqueda)) {
                             txtResulBusq.append(dato + "\n");
@@ -103,7 +108,7 @@ public class VendedorGui extends JInternalFrame {
                     }
                 } else if (opcionBusqueda.equals("Apellido")) {
                     // Buscar por apellido
-                    for (String dato : datosAgregados) {
+                    for (String dato : arregloVendedores2) {
                         String[] partes = dato.split(" ");
                         if (partes.length >= 3 && partes[2].equals(textoBusqueda)) {
                             txtResulBusq.append(dato + "\n");
@@ -111,7 +116,7 @@ public class VendedorGui extends JInternalFrame {
                     }
                 } else if (opcionBusqueda.equals("DNI")) {
                     // Buscar por DNI
-                    for (String dato : datosAgregados) {
+                    for (String dato : arregloVendedores2) {
                         if (dato.contains(textoBusqueda)) {
                             txtResulBusq.append(dato + "\n");
                         }
@@ -126,23 +131,7 @@ public class VendedorGui extends JInternalFrame {
 
         btnagregar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String nombres = txtnombres.getText();
-                String apellidos = txtapellidos.getText();
-                String telf = txttelf.getText();
-                String dni = txtdni.getText();
-
-                if (nombres.isEmpty() || apellidos.isEmpty() || telf.isEmpty() || dni.isEmpty()) {
-                    JOptionPane.showMessageDialog(contentPane, "Por favor, complete todos los campos antes de agregar.", "Error", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    contadorVendedores++;
-                    String vendedorInfo = contadorVendedores + " " + nombres + " " + apellidos + " - " + telf + " - " + dni;
-                    txtlista.append(vendedorInfo + "\n");
-                    datosAgregados.add(vendedorInfo);
-                    txtnombres.setText("");
-                    txtapellidos.setText("");
-                    txttelf.setText("");
-                    txtdni.setText("");
-                }
+                agregar();
             }
         });
 
@@ -151,24 +140,9 @@ public class VendedorGui extends JInternalFrame {
         contentPane.add(btnmodificar);
 
         btnmodificar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String nombres = txtnombres.getText();
-                String apellidos = txtapellidos.getText();
-                String telf = txttelf.getText();
-                String dni = txtdni.getText();
 
-                if (!nombres.isEmpty() && !apellidos.isEmpty() && !telf.isEmpty() && !dni.isEmpty()) {
-                    contadorVendedores++;
-                    String vendedorInfo = contadorVendedores + " " + nombres + " " + apellidos + " - " + telf + " - " + dni;
-                    txtlista.append(vendedorInfo + "\n");
-                    datosAgregados.add(vendedorInfo);     
-                    txtnombres.setText("");
-                    txtapellidos.setText("");
-                    txttelf.setText("");
-                    txtdni.setText("");
-                } else {
-                    JOptionPane.showMessageDialog(contentPane, "Por favor, complete todos los campos antes de agregar.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+            public void actionPerformed(ActionEvent e) {
+                modificar();
             }
         });
 
@@ -179,10 +153,7 @@ public class VendedorGui extends JInternalFrame {
         JButton btnconsultar = new JButton("Consultar");
         btnconsultar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                txtlista.setText("");
-                for (String dato : datosAgregados) {
-                    txtlista.append(dato + "\n");
-                }
+                consultar();
             }
         });
         btnconsultar.setBounds(209, 181, 89, 23);
@@ -226,8 +197,90 @@ public class VendedorGui extends JInternalFrame {
         txtdni = new JTextField();
         txtdni.setBounds(81, 242, 99, 20);
         contentPane.add(txtdni);
-        
-    }     
+
+        cargarVendedoresDesdeArchivo("vendedores.txt");
+
+        for (String vendedorInfo : arregloVendedores2) {
+            txtlista.append(vendedorInfo + "\n");
+        }
+    }
+
+    public void agregar() {
+        String nombres = txtnombres.getText();
+        String apellidos = txtapellidos.getText();
+        String telefono = txttelf.getText();
+        String dni = txtdni.getText();
+
+        if (nombres.isEmpty() || apellidos.isEmpty() || telefono.isEmpty() || dni.isEmpty()) {
+            JOptionPane.showMessageDialog(contentPane, "Por favor, complete todos los campos antes de agregar.", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+			Vendedor vendedor = new Vendedor(nombres, apellidos, telefono, dni);
+            arregloVendedores.agregar(vendedor);
+            limpieza();
+        }
+    }
+    public void modificar() {
+    	int codigoVendedor = txtnombres.getText();
+        String nombres = txtnombres.getText();
+        String apellidos = txtapellidos.getText();
+        String telf = txttelf.getText();
+        String dni = txtdni.getText();
+
+        if (!nombres.isEmpty() && !apellidos.isEmpty() && !telf.isEmpty() && !dni.isEmpty()) {
+            contadorVendedores++;
+            String vendedorInfo = contadorVendedores + " " + nombres + " " + apellidos + " - " + telf + " - " + dni;
+            txtlista.append(vendedorInfo + "\n");
+            arregloVendedores2.add(vendedorInfo);
+            limpieza();
+
+            guardarVendedoresEnArchivo("vendedores.txt");
+        } else {
+            JOptionPane.showMessageDialog(contentPane, "Por favor, complete todos los campos antes de agregar.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    public void consultar() {
+        txtlista.setText("");
+        for (String dato : arregloVendedores2) {
+            txtlista.append(dato + "\n");
+        }
+    }
+
+    private void cargarVendedoresDesdeArchivo(String archivo) {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(archivo));
+            String linea;
+
+            while ((linea = br.readLine()) != null) {
+                arregloVendedores2.add(linea);
+            }
+
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void guardarVendedoresEnArchivo(String archivo) {
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(archivo));
+
+            for (String vendedorInfo : arregloVendedores2) {
+                bw.write(vendedorInfo);
+                bw.newLine();
+            }
+
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    void limpieza() {
+        txtnombres.setText("");
+        txtapellidos.setText("");
+        txttelf.setText("");
+        txtdni.setText("");
+    }
 }
 
 

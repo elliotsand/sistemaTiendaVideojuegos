@@ -41,6 +41,21 @@ public class Vendedor {
     public String getDni() {
         return dni;
     }
+    public void setNombres(String nombres) {
+        this.nombres = nombres;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
+    public void setTelefono(String telf) {
+        this.telf = telf;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
 }
 
 
