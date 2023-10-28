@@ -15,7 +15,6 @@ import java.util.ArrayList;
 public class VendedorGui extends JInternalFrame {
 
 	private JPanel contentPane;
-	private JTextField txtbuscar;
 	private JTextField txtnombres;
 	private JTextField txtapellidos;
 	private JTextArea txtlista;
@@ -42,7 +41,7 @@ public class VendedorGui extends JInternalFrame {
 		contentPane.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(20, 36, 179, 130);
+		scrollPane.setBounds(30, 36, 354, 130);
 		contentPane.add(scrollPane);
 
 		txtlista = new JTextArea();
@@ -52,81 +51,37 @@ public class VendedorGui extends JInternalFrame {
 		lblNewLabel.setBounds(20, 11, 122, 14);
 		contentPane.add(lblNewLabel);
 
-		JLabel lblNewLabel_1 = new JLabel("Buscar por:");
-		lblNewLabel_1.setBounds(218, 14, 70, 14);
-		contentPane.add(lblNewLabel_1);
-
-		JComboBox cbtipoBusq = new JComboBox();
-		cbtipoBusq.setModel(new DefaultComboBoxModel(new String[] { "Cód. Vendedor", "Nombre", "Apellido", "DNI" }));
-		cbtipoBusq.setBounds(298, 10, 111, 22);
-		contentPane.add(cbtipoBusq);
-
-		txtbuscar = new JTextField();
-		txtbuscar.setBounds(218, 43, 111, 20);
-		contentPane.add(txtbuscar);
-		txtbuscar.setColumns(10);
-
-		JScrollPane scrollPaneResulBusq = new JScrollPane();
-		scrollPaneResulBusq.setBounds(218, 99, 179, 67);
-		contentPane.add(scrollPaneResulBusq);
-
-		JTextArea txtResulBusq = new JTextArea();
-		scrollPaneResulBusq.setViewportView(txtResulBusq);
-
 		btnbuscar = new JButton("Buscar");
-		btnbuscar.setBounds(327, 41, 89, 23);
+		btnbuscar.setBounds(209, 203, 89, 23);
 		contentPane.add(btnbuscar);
 
 		btnbuscar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// Obtener la opción seleccionada en cbtipoBusq
-				String opcionBusqueda = (String) cbtipoBusq.getSelectedItem();
-				String textoBusqueda = txtbuscar.getText().trim();
+		    public void actionPerformed(ActionEvent e) {
+		        int codigoVendedorBuscado;
+		        try {
+		            codigoVendedorBuscado = Integer.parseInt(textCodigoVendedor.getText().trim());
+		        } catch (NumberFormatException ex) {
+		            JOptionPane.showMessageDialog(contentPane, "Ingrese un código válido.", "Error", JOptionPane.ERROR_MESSAGE);
+		            return;
+		        }
 
-				// Limpiar el área de resultados de búsqueda
-				txtResulBusq.setText("");
+		        Vendedor vendedorEncontrado = arregloVendedores.buscar(codigoVendedorBuscado);
 
-				if (opcionBusqueda.equals("Cód. Vendedor")) {
-					// Buscar por número de vendedor
-					String resultado = null;
-					for (String dato : arregloVendedores2) {
-						String[] partes = dato.split(" ");
-						if (partes.length >= 1 && partes[0].equals(textoBusqueda)) {
-							resultado = dato;
-						}
-					}
-					if (resultado != null) {
-						txtResulBusq.append(resultado + "\n");
-					}
-				} else if (opcionBusqueda.equals("Nombre")) {
-					// Buscar por nombre
-					for (String dato : arregloVendedores2) {
-						String[] partes = dato.split(" ");
-						if (partes.length >= 2 && partes[1].equals(textoBusqueda)) {
-							txtResulBusq.append(dato + "\n");
-						}
-					}
-				} else if (opcionBusqueda.equals("Apellido")) {
-					// Buscar por apellido
-					for (String dato : arregloVendedores2) {
-						String[] partes = dato.split(" ");
-						if (partes.length >= 3 && partes[2].equals(textoBusqueda)) {
-							txtResulBusq.append(dato + "\n");
-						}
-					}
-				} else if (opcionBusqueda.equals("DNI")) {
-					// Buscar por DNI
-					for (String dato : arregloVendedores2) {
-						if (dato.contains(textoBusqueda)) {
-							txtResulBusq.append(dato + "\n");
-						}
-					}
-				}
-			}
+		        if (vendedorEncontrado != null) {
+		            
+		            textCodigoVendedor.setText(String.valueOf(vendedorEncontrado.getCodigoVendedor()));
+		            txtnombres.setText(vendedorEncontrado.getNombres());
+		            txtapellidos.setText(vendedorEncontrado.getApellidos());
+		            txttelf.setText(vendedorEncontrado.getTelefono());
+		            txtdni.setText(vendedorEncontrado.getDni());
+		        } else {
+		            JOptionPane.showMessageDialog(contentPane, "Vendedor no encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
+		        }
+		    }
 		});
 
 		JButton btnagregar = new JButton("Agregar");
-		btnagregar.setBounds(209, 275, 89, 23);
+		btnagregar.setBounds(209, 273, 89, 23);
 		contentPane.add(btnagregar);
 
 		btnagregar.addActionListener(new ActionListener() {
@@ -136,7 +91,7 @@ public class VendedorGui extends JInternalFrame {
 		});
 
 		JButton btnmodificar = new JButton("Modificar");
-		btnmodificar.setBounds(308, 275, 89, 23);
+		btnmodificar.setBounds(209, 239, 89, 23);
 		contentPane.add(btnmodificar);
 
 		btnmodificar.addActionListener(new ActionListener() {
@@ -155,19 +110,6 @@ public class VendedorGui extends JInternalFrame {
 		});
 		contentPane.add(btneliminar);
 
-		JButton btnconsultar = new JButton("Consultar");
-		btnconsultar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				consultar();
-			}
-		});
-		btnconsultar.setBounds(209, 239, 89, 23);
-		contentPane.add(btnconsultar);
-
-		JLabel lblNewLabel_2 = new JLabel("Resultados de búsqueda:");
-		lblNewLabel_2.setBounds(218, 74, 152, 14);
-		contentPane.add(lblNewLabel_2);
-
 		JLabel lblNewLabel_3 = new JLabel("Nombres:");
 		lblNewLabel_3.setBounds(19, 207, 63, 14);
 		contentPane.add(lblNewLabel_3);
@@ -185,22 +127,22 @@ public class VendedorGui extends JInternalFrame {
 		contentPane.add(lblNewLabel_7);
 
 		txtnombres = new JTextField();
-		txtnombres.setBounds(82, 204, 99, 20);
+		txtnombres.setBounds(82, 202, 99, 20);
 		contentPane.add(txtnombres);
 		txtnombres.setColumns(10);
 
 		txtapellidos = new JTextField();
-		txtapellidos.setBounds(82, 232, 98, 20);
+		txtapellidos.setBounds(83, 228, 98, 20);
 		contentPane.add(txtapellidos);
 		txtapellidos.setColumns(10);
 
 		txttelf = new JTextField();
-		txttelf.setBounds(82, 257, 99, 20);
+		txttelf.setBounds(82, 254, 99, 20);
 		contentPane.add(txttelf);
 		txttelf.setColumns(10);
 
 		txtdni = new JTextField();
-		txtdni.setBounds(82, 281, 99, 20);
+		txtdni.setBounds(82, 280, 99, 20);
 		contentPane.add(txtdni);
 
 		JLabel lblNewLabel_3_1 = new JLabel("Codigo");
@@ -220,26 +162,26 @@ public class VendedorGui extends JInternalFrame {
 	}
 
 	public void agregar() {
-		String nombres = txtnombres.getText();
-		String apellidos = txtapellidos.getText();
-		String telefono = txttelf.getText();
-		String dni = txtdni.getText();
+	    String nombres = txtnombres.getText();
+	    String apellidos = txtapellidos.getText();
+	    String telefono = txttelf.getText();
+	    String dni = txtdni.getText();
 
-		if (nombres.isEmpty() || apellidos.isEmpty() || telefono.isEmpty() || dni.isEmpty()) {
-			JOptionPane.showMessageDialog(contentPane, "Por favor, complete todos los campos antes de agregar.",
-					"Error", JOptionPane.ERROR_MESSAGE);
-		} else {
-			Vendedor vendedor = new Vendedor(nombres, apellidos, telefono, dni);
-			arregloVendedores.agregar(vendedor);
-			arregloVendedores.actualizar();
-			limpieza();
+	    if (nombres.isEmpty() || apellidos.isEmpty() || telefono.isEmpty() || dni.isEmpty()) {
+	        JOptionPane.showMessageDialog(contentPane, "Por favor, complete todos los campos antes de agregar.",
+	                "Error", JOptionPane.ERROR_MESSAGE);
+	    } else {
+	        Vendedor vendedor = new Vendedor(nombres, apellidos, telefono, dni);
+	        arregloVendedores.agregar(vendedor);
+	        arregloVendedores.actualizar();
+	        limpieza();
 
-			txtlista.setText("");
-			for (Vendedor v : arregloVendedores.getVendedores()) {
-				txtlista.append(v.getCodigoVendedor() + " " + v.getNombres() + " " + v.getApellidos() + " "
-						+ v.getTelefono() + " " + v.getDni() + "\n");
-			}
-		}
+	        txtlista.setText("");
+	        for (Vendedor v : arregloVendedores.getVendedores()) {
+	            txtlista.append(v.getCodigoVendedor() + " " + v.getNombres() + " " + v.getApellidos() + " "
+	                    + v.getTelefono() + " " + v.getDni() + "\n");
+	        }
+	    }
 	}
 
 	public void modificar() {
@@ -261,7 +203,6 @@ public class VendedorGui extends JInternalFrame {
 
 				limpieza();
 
-				// Actualiza el JTextArea después de modificar el vendedor
 				txtlista.setText("");
 				for (Vendedor v : arregloVendedores.getVendedores()) {
 					txtlista.append(v.getCodigoVendedor() + " " + v.getNombres() + " " + v.getApellidos() + " "
@@ -274,13 +215,6 @@ public class VendedorGui extends JInternalFrame {
 		} else {
 			JOptionPane.showMessageDialog(contentPane, "Por favor, complete todos los campos antes de modificar.",
 					"Error", JOptionPane.ERROR_MESSAGE);
-		}
-	}
-
-	public void consultar() {
-		txtlista.setText("");
-		for (String dato : arregloVendedores2) {
-			txtlista.append(dato + "\n");
 		}
 	}
 
@@ -299,16 +233,16 @@ public class VendedorGui extends JInternalFrame {
 	}
 
 	public void eliminar() {
-		int codigoVendedor = Integer.parseInt(textCodigoVendedor.getText());
-		Vendedor vendedor = arregloVendedores.buscar(codigoVendedor);
+	    int codigoVendedor = Integer.parseInt(textCodigoVendedor.getText());
+	    Vendedor vendedor = arregloVendedores.buscar(codigoVendedor);
 
-		if (vendedor != null) {
-			arregloVendedores.eliminar(vendedor);
-			actualizarTextArea();
-			limpieza();
-		} else {
-			JOptionPane.showMessageDialog(contentPane, "Vendedor no encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
-		}
+	    if (vendedor != null) {
+	        arregloVendedores.eliminar(vendedor);
+	        actualizarTextArea();
+	        limpieza();
+	    } else {
+	        JOptionPane.showMessageDialog(contentPane, "Vendedor no encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
+	    }
 	}
 
 	private void actualizarTextArea() {

@@ -10,8 +10,8 @@ public class ArregloFacturas {
 
     public ArregloFacturas() {
         facturas = new ArrayList<>();
-        cargarFactura();
         establecerCorrelativo();
+        cargarFactura();
     }
 
     public int tamanio() {
@@ -20,8 +20,8 @@ public class ArregloFacturas {
 
     public void agregar(Factura factura) {
         facturas.add(factura);
+        establecerCorrelativo();
         grabarFactura();
-        //establecerCorrelativo();
     }
 
     public Factura obtener(int posicion) {
@@ -30,8 +30,8 @@ public class ArregloFacturas {
 
     public void eliminar(Factura factura) {
         facturas.remove(factura);
+        establecerCorrelativo();
         grabarFactura();
-        //establecerCorrelativo();
     }
 
     public Factura buscar(int codigo) {
@@ -95,7 +95,7 @@ public class ArregloFacturas {
     }
 
     private void establecerCorrelativo() {
-        int maxCodigo = 3000;
+        int maxCodigo = 4000;
         for (Factura factura : facturas) {
             if (factura.getCodigoFactura() > maxCodigo) {
                 maxCodigo = factura.getCodigoFactura();

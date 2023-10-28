@@ -1,6 +1,5 @@
 package proyectotienda.arreglos;
 
-import proyectotienda.clases.Producto;
 import proyectotienda.clases.Venta;
 
 import java.io.*;
@@ -12,8 +11,8 @@ public class ArregloVentas {
 
     public ArregloVentas() {
         ventas = new ArrayList<>();
+        establecerCorrelativo();
         cargarVenta();
-        //establecerCorrelativo();
     }
 
     public int tamanio() {
@@ -22,8 +21,8 @@ public class ArregloVentas {
 
     public void agregar(Venta venta) {
         ventas.add(venta);
+        establecerCorrelativo();
         grabarVenta();
-        //establecerCorrelativo();
     }
 
     public Venta obtener(int posicion) {
@@ -32,8 +31,8 @@ public class ArregloVentas {
 
     public void eliminar(Venta venta) {
         ventas.remove(venta);
+        establecerCorrelativo();
         grabarVenta();
-        //establecerCorrelativo();
     }
 
     public Venta buscar(int codigo) {

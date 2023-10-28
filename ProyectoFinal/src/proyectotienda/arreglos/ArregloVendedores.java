@@ -12,8 +12,8 @@ public class ArregloVendedores {
 
     public ArregloVendedores() {
         vendedores = new ArrayList<>();
-        cargarVendedor();
         establecerCorrelativo();
+        cargarVendedor();
     }
 
     public int tamanio() {
@@ -22,14 +22,19 @@ public class ArregloVendedores {
 
     public void agregar(Vendedor vendedor) {
         vendedores.add(vendedor);
+        establecerCorrelativo();
         grabarVendedor();
-        //establecerCorrelativo();
     }
 
     public Vendedor obtener(int posicion) {
         return vendedores.get(posicion);
     }
 
+    public void eliminar(Vendedor vendedor) {
+        vendedores.remove(vendedor);
+        establecerCorrelativo();
+        grabarVendedor();
+    }
 
     public Vendedor buscar(int codigo) {
         for(Vendedor vendedor : vendedores)
@@ -97,18 +102,12 @@ public class ArregloVendedores {
                 maxCodigo = vendedor.getCodigoVendedor();
             }
         }
-        Cliente.establecerCorrelativo(maxCodigo + 1);
+        Vendedor.establecerCorrelativo(maxCodigo + 1);
     }
+
     public ArrayList<Vendedor> getVendedores() {
-        return vendedores;
+        return this.vendedores;
     }
-
-	public void eliminar(Vendedor vendedor) {
-		vendedores.remove(vendedor);
-        grabarVendedor();
-        establecerCorrelativo();
-
-	}
 
     public int obtenerNumeroVentasPorVendedor(int codigoVendedor) {
         int numeroVentas = 0;

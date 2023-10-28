@@ -11,8 +11,8 @@ public class ArregloClientes {
 
     public ArregloClientes() {
         clientes = new ArrayList<>();
+        establecerCorrelativo();
         cargarCliente();
-        //establecerCorrelativo();
     }
 
     public int tamanio() {
@@ -21,8 +21,8 @@ public class ArregloClientes {
 
     public void agregar(Cliente cliente) {
         clientes.add(cliente);
+        establecerCorrelativo();
         grabarCliente();
-        //establecerCorrelativo();
     }
 
     public Cliente obtener(int posicion) {
@@ -31,8 +31,8 @@ public class ArregloClientes {
 
     public void eliminar(Cliente cliente) {
         clientes.remove(cliente);
+        establecerCorrelativo();
         grabarCliente();
-        //establecerCorrelativo();
     }
 
     public Cliente buscar(int codigo) {

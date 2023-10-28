@@ -3,7 +3,7 @@ package proyectotienda.clases;
 
 public class Factura {
 
-    private static int codigoFacturaCounter = 4001;
+    private static int correlativo = 4001;
     private int codigoFactura;
     private int codigoVendedor;
     private int codigoProducto;
@@ -11,19 +11,15 @@ public class Factura {
     private double precio;
 
     public Factura( int codigoProducto, int codigoVendedor, double precio, int unidades) {
-        this.codigoFactura = generarCodigoFactura();
+        this.codigoFactura = correlativo;
         this.codigoVendedor = codigoVendedor;
         this.codigoProducto = codigoProducto;
         this.unidades = unidades;
         this.precio = precio;
+        correlativo++;
     }
 
     public int getCodigoFactura() {
-        return codigoFactura;
-    }
-
-    public int setCodigoFactura(int codigoFactura) {
-        this.codigoFactura = codigoFactura;
         return codigoFactura;
     }
 
@@ -59,11 +55,7 @@ public class Factura {
         this.precio = precio;
     }
 
-    private static int generarCodigoFactura() {
-        return codigoFacturaCounter++;
-    }
-
     public static void establecerCorrelativo(int valor) {
-        int codigoProductoCounter = valor;
+        correlativo = valor;
     }
 }
