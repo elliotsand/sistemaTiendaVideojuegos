@@ -1,6 +1,5 @@
 package proyectotienda.arreglos;
 
-import proyectotienda.hijas.Cliente;
 import proyectotienda.hijas.Vendedor;
 
 import java.io.*;
@@ -12,7 +11,7 @@ public class ArregloVendedores {
 
     public ArregloVendedores() {
         vendedores = new ArrayList<>();
-        cargarCliente();
+        cargarVendedor();
         establecerCorrelativo();
     }
 
@@ -22,7 +21,7 @@ public class ArregloVendedores {
 
     public void agregar(Vendedor vendedor) {
         vendedores.add(vendedor);
-        grabarCliente();
+        grabarVendedor();
         establecerCorrelativo();
     }
 
@@ -32,7 +31,7 @@ public class ArregloVendedores {
 
     public void eliminar(Vendedor vendedor) {
         vendedores.remove(vendedor);
-        grabarCliente();
+        grabarVendedor();
         establecerCorrelativo();
     }
 
@@ -45,10 +44,10 @@ public class ArregloVendedores {
     }
 
     public void actualizar() {
-        grabarCliente();
+    	grabarVendedor();
     }
 
-    private void cargarCliente() {
+    private void cargarVendedor() {
         try {
             BufferedReader bufferedReader;
             String linea;
@@ -58,7 +57,7 @@ public class ArregloVendedores {
             String dni;
             String[] strings;
 
-            bufferedReader = new BufferedReader(new FileReader("Clientes.txt"));
+            bufferedReader = new BufferedReader(new FileReader("Vendedores.txt"));
 
             while((linea = bufferedReader.readLine()) != null) {
                 strings = linea.split(";");
@@ -75,18 +74,14 @@ public class ArregloVendedores {
         }
     }
 
-    private void grabarCliente() {
+    private void grabarVendedor() {
         PrintWriter printWriter;
         String linea;
         Vendedor vendedor;
         try {
-            printWriter = new PrintWriter(new FileWriter("Clientes.txt"));
+            printWriter = new PrintWriter(new FileWriter("Vendedores.txt"));
             for (int i = 0; i < tamanio(); i++) {
                 vendedor = obtener(i);
-                /*linea = vendedor.getCodigoCliente() + ";" + vendedor.getNombres() +
-                        ";" + vendedor.getApellidos() + ";" + vendedor.getTelefono() +
-                        ";" + vendedor.getDni();
-                printWriter.println(linea);*/
             }
             printWriter.close();
         }
@@ -96,13 +91,10 @@ public class ArregloVendedores {
     }
 
     private void establecerCorrelativo() {
-        int maxCodigo = 1000; // Valor predeterminado si no hay clientes
+        int maxCodigo = 1000;
         for (Vendedor vendedor : vendedores) {
-            //if (vendedor.getCodigoCliente() > maxCodigo) {
-           //     maxCodigo = vendedor.getCodigoCliente();
-           // }
+
         }
-        //Vendedor.establecerCorrelativo(maxCodigo + 1);
     }
 
 }
